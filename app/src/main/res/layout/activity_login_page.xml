@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#D1D1D1"
+    android:background="#EFEFEF"
     tools:context=".LoginPage">
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -24,8 +24,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Enter Your Details"
+                android:layout_marginTop="10dp"
                 android:id="@+id/text"
-                android:textColor="@color/purple_700"
+                android:textColor="#081DA8"
                 android:textSize="30dp"
                 android:layout_centerHorizontal="true"
                 android:textStyle="bold"
@@ -95,7 +96,6 @@
                     android:layout_marginEnd="9dp"
                     android:layout_marginBottom="9dp"
                     android:background="@drawable/cir"
-                    android:padding="7dp"
                 />
 
                 <TextView
@@ -103,7 +103,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="25dp"
                     android:background="@color/white"
-                    android:text="Name"
+                    android:text="Email"
                     android:textColor="@color/black"
                     android:textSize="14dp"
                     android:textStyle="bold" />
@@ -141,7 +141,6 @@
                     android:layout_marginEnd="9dp"
                     android:layout_marginBottom="9dp"
                     android:background="@drawable/cir"
-                    android:padding="7dp"
                />
 
                 <TextView
@@ -149,7 +148,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="25dp"
                     android:background="@color/white"
-                    android:text="Name"
+                    android:text="Password"
                     android:textColor="@color/black"
                     android:textSize="14dp"
                     android:textStyle="bold" />
@@ -187,14 +186,13 @@
                     android:layout_marginEnd="9dp"
                     android:layout_marginBottom="9dp"
                     android:background="@drawable/cir"
-                    android:padding="7dp" />
-
+/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="25dp"
                     android:background="@color/white"
-                    android:text="Name"
+                    android:text="Phone No"
                     android:textColor="@color/black"
                     android:textSize="14dp"
                     android:textStyle="bold" />
@@ -232,14 +230,13 @@
                     android:layout_marginEnd="9dp"
                     android:layout_marginBottom="9dp"
                     android:background="@drawable/cir"
-                    android:padding="7dp" />
-
+/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="25dp"
                     android:background="@color/white"
-                    android:text="Name"
+                    android:text="City"
                     android:textColor="@color/black"
                     android:textSize="14dp"
                     android:textStyle="bold" />
@@ -277,14 +274,13 @@
                     android:layout_marginEnd="9dp"
                     android:layout_marginBottom="9dp"
                     android:background="@drawable/cir"
-                    android:padding="7dp" />
-
+/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="25dp"
                     android:background="@color/white"
-                    android:text="Name"
+                    android:text="Aadhar Card no"
                     android:textColor="@color/black"
                     android:textSize="14dp"
                     android:textStyle="bold" />
@@ -346,19 +342,25 @@
                         />
                 </RadioGroup>
             </RelativeLayout>
-
-            <Button
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/button"
-                android:backgroundTint="#081DA8"
-                android:text="Submit"
                 android:layout_alignParentBottom="true"
-                android:textSize="16dp" />
+                app:cardCornerRadius="30dp"
+                >
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:backgroundTint="#081DA8"
+                    android:text="Submit"
+                    android:id="@+id/button"
+                    android:textSize="16dp" />
+            </androidx.cardview.widget.CardView>
+
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 

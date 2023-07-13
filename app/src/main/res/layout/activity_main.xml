@@ -5,19 +5,80 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="#CFCFCF"
+    android:background="@color/white"
     >
-
-    <Button
+<ImageView
+    android:layout_width="400dp"
+    android:layout_height="match_parent"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="20dp"
+    android:src="@drawable/image"
+    android:id="@+id/image"
+    android:layout_above="@id/text"
+    />
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="250dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="-40dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/button"
-        android:backgroundTint="#081DA8"
-        android:text="Lets Get started"
-        android:id="@+id/button"
-        android:textSize="16dp" />
+        android:layout_marginBottom="15dp"
+        android:id="@id/text"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        >
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardCornerRadius="40dp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#CCCCCC"
+                >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#CCCCCC"
+                android:layout_above="@id/button"
+                >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Welcome to SmartBin+ Converting waste into rewards one bin at a time."
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="43dp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="28dp"
+                    />
+
+            </RelativeLayout>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_alignParentBottom="true"
+                    app:cardCornerRadius="30dp"
+                    android:backgroundTint="#CCCCCC"
+                    >
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Lets Get started"
+                        android:id="@+id/button"
+                        android:textSize="16dp"
+                        android:backgroundTint="#081DA8"
+                        android:padding="10dp"
+                        />
+                </androidx.cardview.widget.CardView>
+
+
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
 </RelativeLayout>
