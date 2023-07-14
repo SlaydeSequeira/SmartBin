@@ -51,6 +51,7 @@
                     android:layout_marginEnd="9dp"
                     android:layout_marginBottom="9dp"
                     android:background="@drawable/cir"
+                    android:id="@+id/edittext1"
                      />
 
                 <TextView
@@ -96,6 +97,7 @@
                     android:layout_marginEnd="9dp"
                     android:layout_marginBottom="9dp"
                     android:background="@drawable/cir"
+                    android:id="@+id/edittext2"
                 />
 
                 <TextView
@@ -141,6 +143,7 @@
                     android:layout_marginEnd="9dp"
                     android:layout_marginBottom="9dp"
                     android:background="@drawable/cir"
+                    android:id="@+id/edittext3"
                />
 
                 <TextView
