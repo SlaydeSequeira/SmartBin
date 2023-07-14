@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EFEFEF"
-    tools:context=".LoginPage">
+    tools:context=".RegisterPage">
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -327,6 +327,7 @@
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
                     android:layout_below="@+id/text1"
+                    android:id="@+id/radio"
                     >
                     <RadioButton
                         android:layout_width="wrap_content"
@@ -345,6 +346,16 @@
                         />
                 </RadioGroup>
             </RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rel7"
+                android:layout_marginLeft="30dp"
+                android:text="Aldready Have An Account?\n Click Here"
+                android:textColor="@color/black"
+                android:textSize="14dp"
+                android:id="@+id/login"
+                />
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="20dp"
+    android:background="#FFFFFF"
+    android:outlineAmbientShadowColor="#F8F8F8"
+    >
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:layout_margin="5dp"
+        app:cardCornerRadius="20dp"
+        android:backgroundTint="#F0F0F0"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.cardview.widget.CardView
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:layout_margin="10dp"
+                app:cardCornerRadius="20dp"
+                android:backgroundTint="@color/white"
+
+                android:id="@+id/card"
+                >
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/imageinrecycler"
+                    />
+            </androidx.cardview.widget.CardView>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="BUY"
+                android:background="@drawable/cir"
+                android:backgroundTint="#FF5722"
+                android:textColor="@color/black"
+                android:layout_below="@+id/card"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="25dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/card"
+                android:layout_margin="10dp"
+                android:textColor="@color/black"
+                android:text="Procuct Name"
+                android:textStyle="bold"
+                android:textSize="25dp"
+                android:id="@+id/text"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/card"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/black"
+                android:text="Brand Name"
+                android:textSize="25dp"
+                android:id="@+id/text2"
+                android:layout_below="@+id/text"
+                />
+
+            <TextView
+                android:id="@+id/text3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="170dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_toRightOf="@+id/card"
+                android:text="Cost"
+                android:textColor="#05C60F"
+                android:textSize="25dp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+
+</RelativeLayout>

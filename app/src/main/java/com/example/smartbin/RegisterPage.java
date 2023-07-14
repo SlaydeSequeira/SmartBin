@@ -6,10 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,9 +22,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 import java.util.Objects;
-import java.util.Random;
 
-public class LoginPage extends AppCompatActivity {
+public class RegisterPage extends AppCompatActivity {
 
     // Widgets
     EditText userET, passET, emailET;
@@ -37,7 +36,7 @@ public class LoginPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_page);
+        setContentView(R.layout.activity_register_page);
         Objects.requireNonNull(getSupportActionBar()).hide();
 
         // Initializing Widgets:
@@ -45,11 +44,18 @@ public class LoginPage extends AppCompatActivity {
         passET = findViewById(R.id.edittext3);
         emailET = findViewById(R.id.edittext2);
         registerBtn = findViewById(R.id.button);
+        TextView t= findViewById(R.id.login);
 
 
         // Firebase Auth
         auth = FirebaseAuth.getInstance();
-
+        t.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i =new Intent(RegisterPage.this,LoginActivity.class);
+                startActivity(i);
+            }
+        });
         // Adding Event Listener to Button Register
         registerBtn.setOnClickListener(new View.OnClickListener(){
 
@@ -61,7 +67,7 @@ public class LoginPage extends AppCompatActivity {
                 String pass_text     = passET.getText().toString();
 
                 if (TextUtils.isEmpty(username_text) || TextUtils.isEmpty(email_text) || TextUtils.isEmpty(pass_text)){
-                    Toast.makeText(LoginPage.this, "Please Fill All Fields", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterPage.this, "Please Fill All Fields", Toast.LENGTH_SHORT).show();
                 }else{
                     RegisterNow(username_text, email_text , pass_text );
                 }
@@ -95,7 +101,7 @@ public class LoginPage extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<Void> task) {
 
                                     if (task.isSuccessful()){
-                                        Intent i = new Intent(LoginPage.this, HomePage.class);
+                                        Intent i = new Intent(RegisterPage.this, HomePage.class);
                                         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(i);
                                         finish();
@@ -110,7 +116,7 @@ public class LoginPage extends AppCompatActivity {
 
 
                         }else{
-                            Toast.makeText(LoginPage.this, "Invalid Email or Password", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegisterPage.this, "Invalid Email or Password", Toast.LENGTH_SHORT).show();
                         }
 
                     }
