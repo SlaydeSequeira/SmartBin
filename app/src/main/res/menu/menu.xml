@@ -9,7 +9,6 @@
         android:icon="@drawable/baseline_logout_24"
         />
 
-
     <item
         android:id="@+id/maps"
         android:title="Maps"

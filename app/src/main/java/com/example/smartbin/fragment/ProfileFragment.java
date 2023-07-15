@@ -11,15 +11,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.example.smartbin.AccountHistory;
+import com.example.smartbin.EditProfile;
+import com.example.smartbin.HomePage;
+import com.example.smartbin.MainActivity;
 import com.example.smartbin.R;
 import com.example.smartbin.model.Users;
 import com.google.android.gms.tasks.Continuation;
@@ -55,6 +62,9 @@ public class ProfileFragment extends Fragment {
     private Uri imageUri;
     private StorageTask uploadTask;
 
+    CardView r1,r2,r3;
+
+
 
 
 
@@ -67,8 +77,32 @@ public class ProfileFragment extends Fragment {
 
         imageView = view.findViewById(R.id.profile_image2);
         username  = view.findViewById(R.id.username);
+        r1= view.findViewById(R.id.rel1);
+        r2= view.findViewById(R.id.rel2);
+        r3= view.findViewById(R.id.rel3);
+        r1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), EditProfile.class);
+                startActivity(i);
 
-
+            }
+        });
+        r2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), AccountHistory.class);
+                startActivity(i);
+            }
+        });
+        r3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(getActivity(), MainActivity.class)
+                        .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            }
+        });
 
         // Profile Image reference in storage
         storageReference = FirebaseStorage.getInstance().getReference("uploads");

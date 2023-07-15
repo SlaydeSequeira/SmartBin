@@ -15,7 +15,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
+
 import com.example.smartbin.adapter.MyPagerAdapter;
+import com.example.smartbin.fragment.HomeFragment;
 import com.example.smartbin.fragment.ProfileFragment;
 import com.example.smartbin.model.Users;
 import com.google.android.material.navigation.NavigationView;
@@ -78,10 +80,12 @@ public class HomePage extends AppCompatActivity {
         ViewPager viewPager = findViewById(R.id.viewpager);
 
         MyPagerAdapter pagerAdapter = new MyPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        pagerAdapter.addFragment(new HomeFragment(), "Home");
         pagerAdapter.addFragment(new ProfileFragment(),"Profile");
         viewPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
-        tabLayout.getTabAt(0).setIcon(R.drawable.baseline_person_24);
+        tabLayout.getTabAt(0).setIcon(R.drawable.baseline_home_24);
+        tabLayout.getTabAt(1).setIcon(R.drawable.baseline_person_24);
 
         navigationView = findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -93,6 +97,7 @@ public class HomePage extends AppCompatActivity {
                         startActivity(new Intent(HomePage.this, MainActivity.class)
                                 .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                         break;
+
                     case R.id.maps:
                         Intent i = new Intent(HomePage.this, MainActivity2.class);
                         startActivity(i);

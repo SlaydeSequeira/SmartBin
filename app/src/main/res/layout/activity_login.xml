@@ -136,14 +136,18 @@
                 android:layout_marginBottom="10dp"
                 android:layout_below="@id/rel2"
                 app:cardCornerRadius="30dp"
+                android:backgroundTint="#081DA8"
+
                 >
+
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:backgroundTint="#081DA8"
                     android:text="Login"
                     android:id="@+id/button"
-                    android:textSize="16dp" />
+                    android:textSize="16dp"
+                    />
             </androidx.cardview.widget.CardView>
 
         </RelativeLayout>

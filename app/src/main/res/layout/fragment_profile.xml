@@ -77,7 +77,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="20dp"
-                    android:text="20 points"
+                    android:text="0 points"
                     android:textColor="@color/black"
                     android:textStyle="bold"
                     android:layout_centerInParent="true"
@@ -140,6 +140,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+
             >
             <ImageView
                 android:layout_width="30dp"
