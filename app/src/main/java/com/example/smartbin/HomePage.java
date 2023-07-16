@@ -1,8 +1,14 @@
 package com.example.smartbin;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -16,6 +22,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
+import com.bumptech.glide.Glide;
 import com.example.smartbin.adapter.MyPagerAdapter;
 import com.example.smartbin.fragment.HomeFragment;
 import com.example.smartbin.fragment.ProfileFragment;
@@ -42,6 +49,10 @@ public class HomePage extends AppCompatActivity {
     ActionBarDrawerToggle actionBarDrawerToggle;
     DrawerLayout drawerLayout;
     Toolbar toolbar;
+    FirebaseUser fuser;
+
+    DatabaseReference reference;
+    LinearLayout r1,r2,r3,r5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +64,6 @@ public class HomePage extends AppCompatActivity {
 
         drawerLayout = findViewById(R.id.my_drawer_layout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, 0, 0);
-
 
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
@@ -88,6 +98,42 @@ public class HomePage extends AppCompatActivity {
         tabLayout.getTabAt(1).setIcon(R.drawable.baseline_person_24);
 
         navigationView = findViewById(R.id.navigation_view);
+        View headerView = navigationView.getHeaderView(0);
+        ImageView imageView = headerView.findViewById(R.id.image);
+        TextView username = headerView.findViewById(R.id.username);
+        r1 = headerView.findViewById(R.id.rel1);
+        r2 = headerView.findViewById(R.id.rel2);
+        r3 = headerView.findViewById(R.id.rel3);
+        r5 = headerView.findViewById(R.id.rel5);
+
+
+        fuser = FirebaseAuth.getInstance().getCurrentUser();
+        reference = FirebaseDatabase.getInstance().getReference("MyUsers")
+                .child(fuser.getUid());
+
+
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                Users user = dataSnapshot.getValue(Users.class);
+                username.setText(user.getUsername());
+
+                if (user.getImageURL().equals("default")){
+                    imageView.setImageResource(R.mipmap.ic_launcher);
+                }else{
+                    Glide.with(HomePage.this).load(user.getImageURL()).into(imageView);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -107,7 +153,27 @@ public class HomePage extends AppCompatActivity {
                 return true;
             }
         });
+
+        r2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(HomePage.this, MainActivity2.class);
+                startActivity(i);
+            }
+        });
+
+        r5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(HomePage.this, MainActivity.class)
+                        .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            }
+        });
+
+
     }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

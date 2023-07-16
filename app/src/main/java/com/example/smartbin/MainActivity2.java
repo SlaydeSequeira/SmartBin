@@ -93,9 +93,14 @@ public class MainActivity2 extends AppCompatActivity implements OnMapReadyCallba
             }
         }
     }
-
     @Override
     public boolean onMarkerClick(Marker marker) {
+        if (ActivityCompat.checkSelfPermission(MainActivity2.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MainActivity2.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // Permission not granted, handle the case where the permission is not available
+            Toast.makeText(MainActivity2.this, "Location permission not granted", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
         LatLng destinationLatLng = marker.getPosition();
         Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         if (location != null) {
@@ -115,6 +120,8 @@ public class MainActivity2 extends AppCompatActivity implements OnMapReadyCallba
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 1) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission granted
+                // Initialize location-related functionality here, such as enabling location on the map
                 if (ActivityCompat.checkSelfPermission(MainActivity2.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MainActivity2.this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                     googleMap.setMyLocationEnabled(true);
                     googleMap.setOnMarkerClickListener(this);
@@ -130,6 +137,7 @@ public class MainActivity2 extends AppCompatActivity implements OnMapReadyCallba
             } else {
                 // Permission denied
                 // Handle the case where the user denied the permission
+                Toast.makeText(MainActivity2.this, "Permission denied", Toast.LENGTH_SHORT).show();
             }
         }
     }
