@@ -1,3 +1,4 @@
+
 package com.example.smartbin.fragment;
 
 import android.Manifest;
@@ -11,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
@@ -22,9 +24,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.smartbin.HomePage;
+import com.example.smartbin.AccountHistory;
 import com.example.smartbin.MainActivity2;
 import com.example.smartbin.R;
+import com.example.smartbin.Rewards;
 import com.example.smartbin.adapter.ImageSliderAdapter;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -43,6 +46,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
     private LocationListener locationListener;
     private Marker marker;
     private int[] images = {R.drawable.img, R.drawable.pic2, R.drawable.pic3};
+    CardView c1,c2;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
@@ -50,6 +54,22 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
         ImageView imageView = rootView.findViewById(R.id.image);
         ViewPager2 viewPager = rootView.findViewById(R.id.viewPager);
         ImageSliderAdapter adapter = new ImageSliderAdapter(getActivity(), images);
+        c1 = rootView.findViewById(R.id.card1);
+        c2 = rootView.findViewById(R.id.card2);
+        c1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), AccountHistory.class);
+                startActivity(i);
+            }
+        });
+        c2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), Rewards.class);
+                startActivity(i);
+            }
+        });
         viewPager.setAdapter(adapter);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
