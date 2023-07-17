@@ -98,6 +98,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         >
         <ImageView
             android:layout_width="30dp"
@@ -140,6 +141,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/white"
 
             >
             <ImageView
@@ -158,7 +160,7 @@
                 android:textStyle="bold"
                 android:layout_marginLeft="20dp"
                 android:textSize="20dp"
-                android:text="Account Details"
+                android:text="Reward History"
                 android:textColor="@color/black"
                 />
             <ImageView
@@ -183,6 +185,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/white"
+
             >
             <ImageView
                 android:layout_width="30dp"

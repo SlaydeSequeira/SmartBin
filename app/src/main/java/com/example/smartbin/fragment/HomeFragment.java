@@ -1,66 +1,235 @@
 package com.example.smartbin.fragment;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.smartbin.HomePage;
+import com.example.smartbin.MainActivity2;
 import com.example.smartbin.R;
+import com.example.smartbin.adapter.ImageSliderAdapter;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link HomeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class HomeFragment extends Fragment {
+import java.util.ArrayList;
+import java.util.List;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+public class HomeFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+    private GoogleMap googleMap;
+    private LocationManager locationManager;
+    private LocationListener locationListener;
+    private Marker marker;
+    private int[] images = {R.drawable.img, R.drawable.pic2, R.drawable.pic3};
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_home, container, false);
+        TextView textView = rootView.findViewById(R.id.text);
+        ImageView imageView = rootView.findViewById(R.id.image);
+        ViewPager2 viewPager = rootView.findViewById(R.id.viewPager);
+        ImageSliderAdapter adapter = new ImageSliderAdapter(getActivity(), images);
+        viewPager.setAdapter(adapter);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), MainActivity2.class);
+                startActivity(i);
+            }
+        });
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), MainActivity2.class);
+                startActivity(i);
+            }
+        });
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.mapFragment);
+        mapFragment.getMapAsync(this);
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+        locationManager = (LocationManager) requireActivity().getSystemService(Context.LOCATION_SERVICE);
+        locationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                updateCurrentLocation(location);
+            }
 
-    public HomeFragment() {
-        // Required empty public constructor
-    }
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+            }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HomeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static HomeFragment newInstance(String param1, String param2) {
-        HomeFragment fragment = new HomeFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+            @Override
+            public void onProviderEnabled(String provider) {
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+            }
+        };
+
+        return rootView;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    public void onMapReady(GoogleMap googleMap) {
+        // Customize the map as needed
+        // Create a list of places with their coordinates
+        List<Place> places = new ArrayList<>();
+        places.add(new Place("Place 1", 19.118940, 72.880755));
+        places.add(new Place("Place 2", 19.263434, 72.968624));
+        places.add(new Place("Place 3", 19.194976, 72.835818));
+        places.add(new Place("Place 4", 18.943044, 72.828842));
+        places.add(new Place("Place 5", 19.044329, 72.820380));
+        // Add markers for each place
+        for (Place place : places) {
+            LatLng placeLatLng = new LatLng(place.getLatitude(), place.getLongitude());
+            googleMap.addMarker(new MarkerOptions()
+                    .position(placeLatLng)
+                    .title(place.getName()));
+        }
+        this.googleMap = googleMap;
+
+        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+        } else {
+            googleMap.setMyLocationEnabled(true);
+            googleMap.setOnMarkerClickListener(this);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+            Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            if (lastKnownLocation != null) {
+                LatLng currentLatLng = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15)); // Adjust the zoom level as needed
+                updateCurrentLocation(lastKnownLocation);
+            }
+
+            // Automatically recenter and zoom in on the user's location
+            googleMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
+                @Override
+                public boolean onMyLocationButtonClick() {
+                    if (lastKnownLocation != null) {
+                        LatLng currentLatLng = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
+                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15)); // Adjust the zoom level as needed
+                    }
+                    return true;
+                }
+            });
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+    public boolean onMarkerClick(Marker marker) {
+        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // Permission not granted, handle the case where the permission is not available
+            Toast.makeText(requireContext(), "Location permission not granted", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
+        LocationManager locationManager = (LocationManager) requireActivity().getSystemService(Context.LOCATION_SERVICE);
+        boolean isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        if (!isGPSEnabled) {
+            // Prompt the user to enable GPS
+            Toast.makeText(requireContext(), "Please enable GPS", Toast.LENGTH_SHORT).show();
+            return true; // Return true to consume the marker click event
+        }
+
+        Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        if (lastKnownLocation != null) {
+            LatLng destinationLatLng = marker.getPosition();
+            LatLng originLatLng = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
+            String directionsUrl = getDirectionsUrl(originLatLng, destinationLatLng);
+            // Start an intent to open Google Maps with the directions URL
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(directionsUrl));
+            startActivity(intent);
+        } else {
+            Toast.makeText(requireContext(), "Unable to retrieve current location", Toast.LENGTH_SHORT).show();
+        }
+        return true;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 1) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission granted
+                // Initialize location-related functionality here, such as enabling location on the map
+                if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                    googleMap.setMyLocationEnabled(true);
+                    googleMap.setOnMarkerClickListener(this);
+                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+                    Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                    if (lastKnownLocation != null) {
+                        updateCurrentLocation(lastKnownLocation);
+                    }
+                }
+            } else {
+                // Permission denied
+                // Handle the case where the user denied the permission
+                Toast.makeText(requireContext(), "Permission denied", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private String getDirectionsUrl(LatLng origin, LatLng destination) {
+        String strOrigin = "origin=" + origin.latitude + "," + origin.longitude;
+        String strDestination = "destination=" + destination.latitude + "," + destination.longitude;
+        String sensor = "sensor=false";
+        String parameters = strOrigin + "&" + strDestination + "&" + sensor;
+        String output = "json";
+        String url = "https://maps.googleapis.com/maps/api/directions/" + output + "?" + parameters;
+        return url;
+    }
+
+    private class Place {
+        private String name;
+        private double latitude;
+        private double longitude;
+
+        public Place(String name, double latitude, double longitude) {
+            this.name = name;
+            this.latitude = latitude;
+            this.longitude = longitude;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public double getLatitude() {
+            return latitude;
+        }
+
+        public double getLongitude() {
+            return longitude;
+        }
+    }
+
+    private void updateCurrentLocation(Location location) {
+        // Handle location updates here
+        double latitude = location.getLatitude();
+        double longitude = location.getLongitude();
+        String message = "Latitude: " + latitude + "\nLongitude: " + longitude;
+        Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show();
     }
 }

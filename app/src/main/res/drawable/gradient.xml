@@ -1,7 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_pressed="true">
+    <item>
         <shape>
-            <solid android:color="#9776BE" />
             <gradient
                 android:type="linear"
                 android:startColor="#0069E8"
@@ -9,15 +9,8 @@
                 android:centerX="0.99"
                 android:centerY="0.99"
                 android:angle="45"
-                />
-            <padding android:left="25dp" />
-
-        </shape>
-    </item>
-    <item>
-        <shape>
-            <padding android:left="25dp" />
-
+            />
         </shape>
     </item>
 </selector>
+

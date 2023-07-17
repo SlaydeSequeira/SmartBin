@@ -52,6 +52,7 @@
                     android:layout_marginBottom="9dp"
                     android:background="@drawable/cir"
                     android:id="@+id/edittext1"
+                    android:textColor="@color/black"
                     />
 
                 <TextView
@@ -98,6 +99,8 @@
                     android:layout_marginBottom="9dp"
                     android:background="@drawable/cir"
                     android:id="@+id/edittext2"
+                    android:textColor="@color/black"
+
                     />
 
                 <TextView

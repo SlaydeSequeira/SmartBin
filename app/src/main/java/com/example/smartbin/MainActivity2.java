@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -42,7 +43,7 @@ public class MainActivity2 extends AppCompatActivity implements OnMapReadyCallba
         locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
-                // Handle location updates here
+                updateCurrentLocation(location);
             }
 
             @Override
@@ -58,17 +59,16 @@ public class MainActivity2 extends AppCompatActivity implements OnMapReadyCallba
             }
         };
     }
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
         // Customize the map as needed
-
         // Create a list of places with their coordinates
         List<Place> places = new ArrayList<>();
-        places.add(new Place("Place 1", 37.7749, -122.4194));
-        places.add(new Place("Place 2", 15.2993, 74.124));
-        places.add(new Place("Place 3", 51.5074, -0.1278));
-
+        places.add(new Place("Place 1", 19.118940, 72.880755));
+        places.add(new Place("Place 2", 19.263434, 72.968624));
+        places.add(new Place("Place 3", 19.194976, 72.835818));
+        places.add(new Place("Place 4", 18.943044, 72.828842));
+        places.add(new Place("Place 5", 19.044329, 72.820380));
         // Add markers for each place
         for (Place place : places) {
             LatLng placeLatLng = new LatLng(place.getLatitude(), place.getLongitude());
@@ -86,13 +86,27 @@ public class MainActivity2 extends AppCompatActivity implements OnMapReadyCallba
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
             Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             if (lastKnownLocation != null) {
-                double latitude = lastKnownLocation.getLatitude();
-                double longitude = lastKnownLocation.getLongitude();
-                String message = "Latitude: " + latitude + "\nLongitude: " + longitude;
-                Toast.makeText(MainActivity2.this, message, Toast.LENGTH_LONG).show();
+                LatLng currentLatLng = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15)); // Adjust the zoom level as needed
+                updateCurrentLocation(lastKnownLocation);
             }
+
+            // Automatically recenter and zoom in on the user's location
+            googleMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
+                @Override
+                public boolean onMyLocationButtonClick() {
+                    if (lastKnownLocation != null) {
+                        LatLng currentLatLng = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
+                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15)); // Adjust the zoom level as needed
+                    }
+                    return true;
+                }
+            });
         }
     }
+
+
+
     @Override
     public boolean onMarkerClick(Marker marker) {
         if (ActivityCompat.checkSelfPermission(MainActivity2.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MainActivity2.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -101,10 +115,18 @@ public class MainActivity2 extends AppCompatActivity implements OnMapReadyCallba
             return true;
         }
 
-        LatLng destinationLatLng = marker.getPosition();
-        Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        if (location != null) {
-            LatLng originLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        boolean isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        if (!isGPSEnabled) {
+            // Prompt the user to enable GPS
+            Toast.makeText(MainActivity2.this, "Please enable GPS", Toast.LENGTH_SHORT).show();
+            return true; // Return true to consume the marker click event
+        }
+
+        Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        if (lastKnownLocation != null) {
+            LatLng destinationLatLng = marker.getPosition();
+            LatLng originLatLng = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
             String directionsUrl = getDirectionsUrl(originLatLng, destinationLatLng);
             // Start an intent to open Google Maps with the directions URL
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(directionsUrl));
@@ -114,6 +136,7 @@ public class MainActivity2 extends AppCompatActivity implements OnMapReadyCallba
         }
         return true;
     }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -128,10 +151,7 @@ public class MainActivity2 extends AppCompatActivity implements OnMapReadyCallba
                     locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
                     Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                     if (lastKnownLocation != null) {
-                        double latitude = lastKnownLocation.getLatitude();
-                        double longitude = lastKnownLocation.getLongitude();
-                        String message = "Latitude: " + latitude + "\nLongitude: " + longitude;
-                        Toast.makeText(MainActivity2.this, message, Toast.LENGTH_LONG).show();
+                        updateCurrentLocation(lastKnownLocation);
                     }
                 }
             } else {
@@ -174,5 +194,13 @@ public class MainActivity2 extends AppCompatActivity implements OnMapReadyCallba
         public double getLongitude() {
             return longitude;
         }
+    }
+
+    private void updateCurrentLocation(Location location) {
+        // Handle location updates here
+        double latitude = location.getLatitude();
+        double longitude = location.getLongitude();
+        String message = "Latitude: " + latitude + "\nLongitude: " + longitude;
+        Toast.makeText(MainActivity2.this, message, Toast.LENGTH_LONG).show();
     }
 }

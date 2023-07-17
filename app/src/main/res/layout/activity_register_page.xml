@@ -52,7 +52,9 @@
                     android:layout_marginBottom="9dp"
                     android:background="@drawable/cir"
                     android:id="@+id/edittext1"
-                     />
+                    android:textColor="@color/black"
+
+                    />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -98,7 +100,9 @@
                     android:layout_marginBottom="9dp"
                     android:background="@drawable/cir"
                     android:id="@+id/edittext2"
-                />
+                    android:textColor="@color/black"
+
+                    />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -144,7 +148,9 @@
                     android:layout_marginBottom="9dp"
                     android:background="@drawable/cir"
                     android:id="@+id/edittext3"
-               />
+                    android:textColor="@color/black"
+                    android:inputType="textPassword"
+                    />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -190,7 +196,9 @@
                     android:layout_marginBottom="9dp"
                     android:background="@drawable/cir"
                     android:id="@+id/edit1"
-/>
+                    android:textColor="@color/black"
+
+                    />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -235,6 +243,8 @@
                     android:layout_marginBottom="9dp"
                     android:background="@drawable/cir"
                     android:id="@+id/edit2"
+                    android:textColor="@color/black"
+
 
                     />
                 <TextView
@@ -281,6 +291,8 @@
                     android:layout_marginBottom="9dp"
                     android:background="@drawable/cir"
                     android:id="@+id/edit3"
+                    android:textColor="@color/black"
+
                     />
                 <TextView
                     android:layout_width="wrap_content"

@@ -153,7 +153,13 @@ public class HomePage extends AppCompatActivity {
                 return true;
             }
         });
-
+        r1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewPager.setCurrentItem(1);
+                drawerLayout.closeDrawer(GravityCompat.START);
+            }
+        });
         r2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -161,7 +167,13 @@ public class HomePage extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
+        r3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(HomePage.this,AccountHistory.class);
+                startActivity(i);
+            }
+        });
         r5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
