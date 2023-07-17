@@ -23,8 +23,14 @@ public class AccountHistory extends AppCompatActivity {
         setContentView(R.layout.activity_account_history);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(AccountHistory.this));
-        count=1;
-        Titles[0]=Description[0]=Image[0]=Author[0]="Hello";
+        count=12;
+        for(int i=0;i<100;i++)
+        {
+            Titles[i]="Points Earned by Disposing Waste";
+            Description[i]="+20 Pts";
+            Image[i]="Trophy";
+            Author[i]="Location:At Frcrce Dustbin";
+        }
         adapter = new RecyclerAdapter(AccountHistory.this, Titles, count, Image, Description,Author);
         recyclerView.setAdapter(adapter);
     }

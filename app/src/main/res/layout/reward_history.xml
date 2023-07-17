@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:layout_marginTop="20dp"
+        >
+<ImageView
+    android:layout_width="match_parent"
+    android:layout_height="110dp"
+    android:layout_centerInParent="true"
+    android:src="@drawable/reward"
+    />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+
+        >
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/baseline_emoji_events"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30dp"
+            android:id="@+id/imageinrecycler"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+android:layout_toRightOf="@+id/imageinrecycler"
+            android:id="@+id/textinrecycler"
+            android:textStyle="bold"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="10dp"
+            android:text="Points Earned by Disposing Waste"
+            android:textSize="15dp"
+            android:textColor="@color/black"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/imageinrecycler"
+            android:id="@+id/author"
+            android:layout_below="@id/textinrecycler"
+            android:textStyle="italic"
+            android:layout_marginLeft="10dp"
+            android:text="Location"
+            android:textSize="12dp"
+            android:layout_toLeftOf="@+id/description"
+            android:textColor="@color/black"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/description"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:text="+20 Pts"
+            android:textSize="20dp"
+            android:textColor="#EAB700"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="50dp"
+            android:layout_marginBottom="30dp"
+
+            />
+    </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>
