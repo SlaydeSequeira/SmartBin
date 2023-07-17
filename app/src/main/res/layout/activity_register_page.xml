@@ -388,6 +388,7 @@
                     android:layout_height="match_parent"
                     android:backgroundTint="#081DA8"
                     android:text="Submit"
+                    android:textColor="@color/white"
                     android:id="@+id/button"
                     android:textSize="16dp" />
             </androidx.cardview.widget.CardView>

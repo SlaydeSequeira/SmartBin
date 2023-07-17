@@ -73,6 +73,8 @@
                         android:textSize="16dp"
                         android:backgroundTint="#081DA8"
                         android:padding="10dp"
+                        android:textColor="@color/white"
+
                         />
                 </androidx.cardview.widget.CardView>
 

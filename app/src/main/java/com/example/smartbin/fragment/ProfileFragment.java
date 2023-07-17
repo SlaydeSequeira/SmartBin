@@ -68,7 +68,6 @@ public class ProfileFragment extends Fragment {
 
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -141,7 +140,7 @@ public class ProfileFragment extends Fragment {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SelectImage();
+                Toast.makeText(getContext(),"You can edit your image in the edit profile section",Toast.LENGTH_SHORT).show();
             }
         });
 

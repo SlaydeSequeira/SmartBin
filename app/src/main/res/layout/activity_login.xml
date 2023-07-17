@@ -149,6 +149,7 @@
                     android:backgroundTint="#081DA8"
                     android:text="Login"
                     android:id="@+id/button"
+                    android:textColor="@color/white"
                     android:textSize="16dp"
                     />
             </androidx.cardview.widget.CardView>
