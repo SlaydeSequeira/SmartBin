@@ -21,6 +21,7 @@ import com.example.smartbin.R;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -69,8 +70,18 @@ public class EditProfile extends AppCompatActivity {
                 HashMap<String, String> hashMap = new HashMap<>();
                 hashMap.put("username", name);
                 hashMap.put("phone", phno);
-                reference.setValue(hashMap);
-
+                reference.setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                             Intent i = new Intent(EditProfile.this,HomePage.class);;
+                             startActivity(i);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(EditProfile.this,"Update Failed Try again Later",Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
         click.setOnClickListener(new View.OnClickListener() {

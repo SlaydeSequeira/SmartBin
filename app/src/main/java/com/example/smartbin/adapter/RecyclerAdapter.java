@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -62,15 +63,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
    holder.itemView.setOnClickListener(new View.OnClickListener() {
        @Override
        public void onClick(View view) {
-           Intent intent= new Intent(view.getContext(), HomePage.class);
-           String tempA=data[position], tempB=data2[position],tempC=picture[position], tempD=Author[position];
-           intent.putExtra("A",tempA);
-           intent.putExtra("B",tempB);
-           intent.putExtra("C",tempC);
-           intent.putExtra("D",tempD);
-           intent.putExtra("E",position);
-           view.getContext().startActivity(intent);
-
+           Toast.makeText(view.getContext(),"No Info Available",Toast.LENGTH_SHORT).show();
        }
    });
 

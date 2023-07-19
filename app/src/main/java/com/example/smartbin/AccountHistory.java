@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.example.smartbin.adapter.RecyclerAdapter;
 
@@ -16,12 +19,21 @@ public class AccountHistory extends AppCompatActivity {
     String[] Author = new String[100];
     int count;
     RecyclerView recyclerView;
+    ImageView i1;;
     RecyclerAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_history);
         recyclerView = findViewById(R.id.recyclerView);
+        i1 = findViewById(R.id.image);
+        i1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(AccountHistory.this,HomePage.class);
+                startActivity(i);
+            }
+        });
         recyclerView.setLayoutManager(new LinearLayoutManager(AccountHistory.this));
         count=12;
         for(int i=0;i<100;i++)

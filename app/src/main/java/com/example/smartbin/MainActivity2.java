@@ -201,6 +201,5 @@ public class MainActivity2 extends AppCompatActivity implements OnMapReadyCallba
         double latitude = location.getLatitude();
         double longitude = location.getLongitude();
         String message = "Latitude: " + latitude + "\nLongitude: " + longitude;
-        Toast.makeText(MainActivity2.this, message, Toast.LENGTH_LONG).show();
     }
 }

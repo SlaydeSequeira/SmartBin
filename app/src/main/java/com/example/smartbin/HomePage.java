@@ -105,7 +105,15 @@ public class HomePage extends AppCompatActivity {
         r2 = headerView.findViewById(R.id.rel2);
         r3 = headerView.findViewById(R.id.rel3);
         r5 = headerView.findViewById(R.id.rel5);
+        LinearLayout r6 = headerView.findViewById(R.id.rel6);
 
+        r6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(HomePage.this,Help.class);
+                startActivity(i);
+            }
+        });
 
         fuser = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference("MyUsers")
