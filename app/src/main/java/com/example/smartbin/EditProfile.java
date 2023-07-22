@@ -27,6 +27,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
@@ -54,6 +55,8 @@ public class EditProfile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
+        // Add this line in the onCreate method
+        storageReference = FirebaseStorage.getInstance().getReference("profile_images");
         e1 = findViewById(R.id.edittext1);
         e2 = findViewById(R.id.edittext2);
         fuser = FirebaseAuth.getInstance().getCurrentUser();
@@ -67,23 +70,26 @@ public class EditProfile extends AppCompatActivity {
             public void onClick(View v) {
                 String name = e1.getText().toString();
                 String phno  = e2.getText().toString();
-                HashMap<String, String> hashMap = new HashMap<>();
+                HashMap<String, Object> hashMap = new HashMap<>(); // Change HashMap type to Object
+
                 hashMap.put("username", name);
                 hashMap.put("phone", phno);
-                reference.setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+
+                reference.updateChildren(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
-                             Intent i = new Intent(EditProfile.this,HomePage.class);;
-                             startActivity(i);
+                        Intent i = new Intent(EditProfile.this, HomePage.class);
+                        startActivity(i);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(EditProfile.this,"Update Failed Try again Later",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EditProfile.this, "Update Failed Try again Later", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
         });
+
         click.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
