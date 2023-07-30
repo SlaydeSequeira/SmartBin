@@ -12,6 +12,8 @@
         android:layout_margin="20dp"
         app:cardCornerRadius="30dp"
         android:elevation="10dp"
+        android:id="@+id/rel"
+
         >
 
 
@@ -100,6 +102,7 @@
                     android:background="@drawable/cir"
                     android:id="@+id/edittext2"
                     android:textColor="@color/black"
+                    android:inputType="textPassword"
 
                     />
 
@@ -155,8 +158,28 @@
             </androidx.cardview.widget.CardView>
 
         </RelativeLayout>
+
     </androidx.cardview.widget.CardView>
 
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Sign in via"
+    android:layout_below="@id/rel"
+    android:textColor="@color/black"
+    android:layout_centerHorizontal="true"
+    android:textSize="20dp"
+    android:id="@+id/text1"
 
+    />
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/img_1"
+        android:layout_below="@+id/text1"
+        android:id="@+id/img"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        />
 
 </RelativeLayout>

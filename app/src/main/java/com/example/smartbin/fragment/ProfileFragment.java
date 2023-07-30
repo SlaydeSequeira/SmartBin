@@ -23,6 +23,7 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.example.smartbin.AadharVerification;
 import com.example.smartbin.AccountHistory;
 import com.example.smartbin.EditProfile;
 import com.example.smartbin.HomePage;
@@ -62,7 +63,7 @@ public class ProfileFragment extends Fragment {
     private Uri imageUri;
     private StorageTask uploadTask;
 
-    CardView r1,r2,r3;
+    CardView r1,r2,r3,r4;
 
 
 
@@ -79,6 +80,7 @@ public class ProfileFragment extends Fragment {
         r1= view.findViewById(R.id.rel1);
         r2= view.findViewById(R.id.rel2);
         r3= view.findViewById(R.id.rel3);
+        r4=view.findViewById(R.id.rel4);
         r1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,6 +97,13 @@ public class ProfileFragment extends Fragment {
             }
         });
         r3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), AadharVerification.class);
+                startActivity(i);
+            }
+        });
+        r4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();

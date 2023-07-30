@@ -5,7 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.example.smartbin.R;
 import com.example.smartbin.adapter.RecyclerAdapter;
@@ -32,6 +35,7 @@ public class Rewards extends AppCompatActivity {
 
     int count = 0;
     int count1 = 0;
+    ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +43,7 @@ public class Rewards extends AppCompatActivity {
         setContentView(R.layout.activity_rewards);
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         RecyclerView recyclerView1 = findViewById(R.id.recyclerView1);
-
+        imageView = findViewById(R.id.image);
         LinearLayoutManager layoutManager = new LinearLayoutManager(Rewards.this);
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(layoutManager);
@@ -96,6 +100,13 @@ public class Rewards extends AppCompatActivity {
 
             }
         });
-
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Rewards.this,HomePage.class);
+                startActivity(i);
+                finish();
+            }
+        });
     }
 }

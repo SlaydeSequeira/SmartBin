@@ -212,6 +212,37 @@
             android:layout_marginLeft="31dp"
             />
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/rel7"
+        android:layout_below="@+id/rel6"
+        android:background="@drawable/back"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        >
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/baseline_ondemand_video_24"
+            />
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Instructions and Demo"
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/black"
+        android:textSize="14dp"
+        android:textStyle="bold"
+
+        />
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/baseline_keyboard_arrow_right_24"
+            android:layout_marginLeft="01dp"
+            />
+    </LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"

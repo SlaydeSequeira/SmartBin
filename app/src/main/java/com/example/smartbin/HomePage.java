@@ -52,7 +52,7 @@ public class HomePage extends AppCompatActivity {
     FirebaseUser fuser;
 
     DatabaseReference reference;
-    LinearLayout r1,r2,r3,r5;
+    LinearLayout r1,r2,r3,r5,r6,r7;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +105,14 @@ public class HomePage extends AppCompatActivity {
         r2 = headerView.findViewById(R.id.rel2);
         r3 = headerView.findViewById(R.id.rel3);
         r5 = headerView.findViewById(R.id.rel5);
+        r7 = headerView.findViewById(R.id.rel7);
+        r7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(HomePage.this,Instruction.class);
+                startActivity(i);
+            }
+        });
         LinearLayout r6 = headerView.findViewById(R.id.rel6);
 
         r6.setOnClickListener(new View.OnClickListener() {

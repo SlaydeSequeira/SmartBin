@@ -63,12 +63,19 @@ public class MainActivity2 extends AppCompatActivity implements OnMapReadyCallba
     private LocationManager locationManager;
     private LocationListener locationListener;
 
+    private static final String LAST_KNOWN_LOCATION_KEY = "last_known_location";
+    private Location lastKnownLocation;
+    private SupportMapFragment mapFragment;
+    private FusedLocationProviderClient fusedLocationClient;
+    private LocationRequest locationRequest;
+    private LocationCallback locationCallback;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapFragment);
+        mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapFragment);
         mapFragment.getMapAsync(this);
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -90,7 +97,68 @@ public class MainActivity2 extends AppCompatActivity implements OnMapReadyCallba
             public void onProviderDisabled(String provider) {
             }
         };
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        locationRequest = new LocationRequest();
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        locationRequest.setInterval(5000); // Update location every 5 seconds
+        locationRequest.setFastestInterval(2000); // Fastest update interval: 2 seconds
+
+        locationCallback = new LocationCallback() {
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                if (locationResult == null) {
+                    return;
+                }
+                for (Location location : locationResult.getLocations()) {
+                    updateCurrentLocation(location);
+                }
+            }
+        };
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        startLocationUpdates();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        stopLocationUpdates();
+    }
+
+    private void startLocationUpdates() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // Handle the case where location permissions are not granted
+            return;
+        }
+        fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null);
+    }
+
+    private void stopLocationUpdates() {
+        fusedLocationClient.removeLocationUpdates(locationCallback);
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (lastKnownLocation != null) {
+            outState.putParcelable(LAST_KNOWN_LOCATION_KEY, lastKnownLocation);
+        }
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if (savedInstanceState != null && savedInstanceState.containsKey(LAST_KNOWN_LOCATION_KEY)) {
+            lastKnownLocation = savedInstanceState.getParcelable(LAST_KNOWN_LOCATION_KEY);
+            updateCurrentLocation(lastKnownLocation);
+        }
+    }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         // Customize the map as needed
@@ -137,8 +205,6 @@ public class MainActivity2 extends AppCompatActivity implements OnMapReadyCallba
         }
     }
 
-
-
     @Override
     public boolean onMarkerClick(Marker marker) {
         if (ActivityCompat.checkSelfPermission(MainActivity2.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MainActivity2.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -168,7 +234,6 @@ public class MainActivity2 extends AppCompatActivity implements OnMapReadyCallba
         }
         return true;
     }
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

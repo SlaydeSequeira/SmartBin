@@ -80,6 +80,7 @@ public class EditProfile extends AppCompatActivity {
                     public void onSuccess(Void unused) {
                         Intent i = new Intent(EditProfile.this, HomePage.class);
                         startActivity(i);
+                        finish();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override

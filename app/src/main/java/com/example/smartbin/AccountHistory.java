@@ -32,6 +32,7 @@ public class AccountHistory extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(AccountHistory.this,HomePage.class);
                 startActivity(i);
+                finish();
             }
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(AccountHistory.this));
