@@ -239,4 +239,10 @@ public class HomePage extends AppCompatActivity {
         super.onPause();
         CheckStatus("Offline");
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+    }
 }

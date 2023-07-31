@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="spinner_items">
+        <item>Cant Locate Dustbin Near Me</item>
+        <item>Didn\'t Receive Points</item>
+        <item>Other</item>
+        <!-- Add more items as needed -->
+    </string-array>
+</resources>
