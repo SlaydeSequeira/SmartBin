@@ -100,7 +100,9 @@ public class HomePage extends AppCompatActivity {
         navigationView = findViewById(R.id.navigation_view);
         View headerView = navigationView.getHeaderView(0);
         ImageView imageView = headerView.findViewById(R.id.image);
+        TextView Pts = headerView.findViewById(R.id.text);
         TextView username = headerView.findViewById(R.id.username);
+        TextView Id = headerView.findViewById(R.id.ID);
         r1 = headerView.findViewById(R.id.rel1);
         r2 = headerView.findViewById(R.id.rel2);
         r3 = headerView.findViewById(R.id.rel3);
@@ -127,7 +129,20 @@ public class HomePage extends AppCompatActivity {
         reference = FirebaseDatabase.getInstance().getReference("MyUsers")
                 .child(fuser.getUid());
 
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String a= String.valueOf(snapshot.child("token").getValue());
+                String b= String.valueOf(snapshot.child("points").getValue());
+                Id.setText("ID: "+a);
+                Pts.setText(b+" Points");
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override

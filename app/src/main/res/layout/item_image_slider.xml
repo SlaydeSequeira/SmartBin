@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- item_image_slider.xml -->
-<ImageView android:id="@+id/imageView"
+<ImageView
+    android:id="@+id/imageView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scaleType="centerCrop"

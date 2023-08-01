@@ -20,7 +20,7 @@
             android:layout_width="140dp"
             android:layout_height="140dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             app:cardCornerRadius="100dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -54,15 +54,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/card"
-            android:layout_marginTop="5dp"
             android:text="Username"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/card"
             app:layout_constraintStart_toStartOf="@+id/card"
             app:layout_constraintTop_toBottomOf="@+id/card" />
-
+        <TextView
+            android:id="@+id/ID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/username"
+            android:text="Username"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="@+id/card"
+            app:layout_constraintStart_toStartOf="@+id/card"
+            app:layout_constraintTop_toBottomOf="@+id/username" />
         <androidx.cardview.widget.CardView
             android:layout_width="100dp"
             android:layout_height="30dp"
@@ -74,19 +83,19 @@
             app:layout_constraintEnd_toEndOf="@+id/card"
             app:layout_constraintHorizontal_bias="0.375"
             app:layout_constraintStart_toStartOf="@+id/card"
-            app:layout_constraintTop_toBottomOf="@+id/username" >
+            app:layout_constraintTop_toBottomOf="@+id/ID" >
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="Points"
-                android:textSize="20dp"
-                android:id="@+id/text"
-                android:textColor="@color/black"
-                />
+
+                <TextView
+                    android:id="@+id/text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="Points"
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -245,7 +254,7 @@
     </LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="210dp"
         android:background="@drawable/back"
         android:id="@+id/rel4"
         android:layout_below="@id/rel6"

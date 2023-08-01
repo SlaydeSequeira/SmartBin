@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.smartbin.R;
 
 public class ImageSliderAdapter extends RecyclerView.Adapter<ImageSliderAdapter.ImageViewHolder> {
-
     private Context context;
     private int[] images;
 
@@ -20,6 +19,7 @@ public class ImageSliderAdapter extends RecyclerView.Adapter<ImageSliderAdapter.
         this.context = context;
         this.images = images;
     }
+
     @NonNull
     @Override
     public ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -41,10 +41,9 @@ public class ImageSliderAdapter extends RecyclerView.Adapter<ImageSliderAdapter.
     static class ImageViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
 
-        ImageViewHolder(@NonNull View itemView) {
+        public ImageViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.imageView);
         }
     }
 }
-

@@ -57,8 +57,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     holder.id.setText(Author[position]);
     Glide.with(context)
                 .load(picture[position])
-                .placeholder(R.drawable.ic_launcher_background)
-                .error(R.drawable.ic_launcher_background)
+                .placeholder(R.drawable.baseline_emoji_events)
+                .error(R.drawable.baseline_emoji_events)
                 .into(holder.imageView);
    holder.itemView.setOnClickListener(new View.OnClickListener() {
        @Override

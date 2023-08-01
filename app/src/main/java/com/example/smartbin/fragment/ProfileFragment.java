@@ -64,7 +64,7 @@ public class ProfileFragment extends Fragment {
     private StorageTask uploadTask;
 
     CardView r1,r2,r3,r4;
-
+    TextView Id;
 
 
 
@@ -74,9 +74,10 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
-
+        TextView Pts = view.findViewById(R.id.points);
         imageView = view.findViewById(R.id.profile_image2);
         username  = view.findViewById(R.id.username);
+        Id= view.findViewById(R.id.Id);
         r1= view.findViewById(R.id.rel1);
         r2= view.findViewById(R.id.rel2);
         r3= view.findViewById(R.id.rel3);
@@ -122,7 +123,20 @@ public class ProfileFragment extends Fragment {
         reference = FirebaseDatabase.getInstance().getReference("MyUsers")
                 .child(fuser.getUid());
 
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String a= String.valueOf(snapshot.child("token").getValue());
+                String b= String.valueOf(snapshot.child("points").getValue());
+                Pts.setText(b+" points");
+                Id.setText("ID: "+a);
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -136,6 +150,7 @@ public class ProfileFragment extends Fragment {
                 }else{
                     Glide.with(getContext()).load(user.getImageURL()).into(imageView);
                 }
+
 
             }
 

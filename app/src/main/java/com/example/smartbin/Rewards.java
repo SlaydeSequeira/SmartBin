@@ -9,11 +9,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.smartbin.R;
 import com.example.smartbin.adapter.RecyclerAdapter;
 import com.example.smartbin.adapter.RecyclerAdapter1;
 import com.example.smartbin.adapter.RecyclerAdapter2;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,7 +39,7 @@ public class Rewards extends AppCompatActivity {
     int count = 0;
     int count1 = 0;
     ImageView imageView;
-
+    TextView t1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,12 +47,28 @@ public class Rewards extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         RecyclerView recyclerView1 = findViewById(R.id.recyclerView1);
         imageView = findViewById(R.id.image);
+        t1= findViewById(R.id.text1);
         LinearLayoutManager layoutManager = new LinearLayoutManager(Rewards.this);
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(layoutManager);
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference myRef = firebaseDatabase.getReference("Vposts");
+        FirebaseUser fuser;
+        fuser = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("MyUsers").child(fuser.getUid());
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String b= String.valueOf(snapshot.child("points").getValue());
+                t1.setText("Total Points: "+b);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

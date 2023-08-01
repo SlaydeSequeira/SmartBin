@@ -1,5 +1,6 @@
 package com.example.smartbin;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -8,8 +9,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.smartbin.adapter.RecyclerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class AccountHistory extends AppCompatActivity {
 
@@ -21,11 +30,13 @@ public class AccountHistory extends AppCompatActivity {
     RecyclerView recyclerView;
     ImageView i1;;
     RecyclerAdapter adapter;
+    TextView t1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_history);
         recyclerView = findViewById(R.id.recyclerView);
+        t1= findViewById(R.id.text1);
         i1 = findViewById(R.id.image);
         i1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,5 +57,21 @@ public class AccountHistory extends AppCompatActivity {
         }
         adapter = new RecyclerAdapter(AccountHistory.this, Titles, count, Image, Description,Author);
         recyclerView.setAdapter(adapter);
+        FirebaseUser fuser;
+        fuser = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("MyUsers").child(fuser.getUid());
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String b= String.valueOf(snapshot.child("points").getValue());
+                t1.setText("Total Points: "+b);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 }
