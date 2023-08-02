@@ -20,6 +20,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Objects;
+
 public class AccountHistory extends AppCompatActivity {
 
     String[] Titles = new String[100];
@@ -36,6 +38,8 @@ public class AccountHistory extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_history);
         recyclerView = findViewById(R.id.recyclerView);
+        Objects.requireNonNull(getSupportActionBar()).hide();
+
         t1= findViewById(R.id.text1);
         i1 = findViewById(R.id.image);
         i1.setOnClickListener(new View.OnClickListener() {

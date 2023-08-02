@@ -1,10 +1,10 @@
 package com.example.smartbin;
-
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -15,31 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
-
-import java.util.ArrayList;
-import java.util.List;
-import android.Manifest;
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.net.Uri;
-import android.os.Bundle;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -49,10 +25,16 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResponse;
-import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.location.SettingsClient;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
@@ -130,8 +112,8 @@ public class MainActivity2 extends AppCompatActivity implements OnMapReadyCallba
     }
 
     private void startLocationUpdates() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // Handle the case where location permissions are not granted
             return;
         }
@@ -178,38 +160,22 @@ public class MainActivity2 extends AppCompatActivity implements OnMapReadyCallba
         }
         this.googleMap = googleMap;
 
-        if (ActivityCompat.checkSelfPermission(MainActivity2.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MainActivity2.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(MainActivity2.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
         } else {
             googleMap.setMyLocationEnabled(true);
             googleMap.setOnMarkerClickListener(this);
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-            Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            if (lastKnownLocation != null) {
-                LatLng currentLatLng = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
-                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15)); // Adjust the zoom level as needed
-                updateCurrentLocation(lastKnownLocation);
-            }
-
-            // Automatically recenter and zoom in on the user's location
-            googleMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
-                @Override
-                public boolean onMyLocationButtonClick() {
-                    if (lastKnownLocation != null) {
-                        LatLng currentLatLng = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
-                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15)); // Adjust the zoom level as needed
-                    }
-                    return true;
-                }
-            });
+            checkLocationSettings();
         }
     }
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        if (ActivityCompat.checkSelfPermission(MainActivity2.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MainActivity2.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // Permission not granted, handle the case where the permission is not available
-            Toast.makeText(MainActivity2.this, "Location permission not granted", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Location permission not granted", Toast.LENGTH_SHORT).show();
             return true;
         }
 
@@ -217,56 +183,55 @@ public class MainActivity2 extends AppCompatActivity implements OnMapReadyCallba
         boolean isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         if (!isGPSEnabled) {
             // Prompt the user to enable GPS
-            Toast.makeText(MainActivity2.this, "Please enable GPS", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please enable GPS", Toast.LENGTH_SHORT).show();
             return true; // Return true to consume the marker click event
         }
 
-        Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         if (lastKnownLocation != null) {
             LatLng destinationLatLng = marker.getPosition();
             LatLng originLatLng = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
-            String directionsUrl = getDirectionsUrl(originLatLng, destinationLatLng);
-            // Start an intent to open Google Maps with the directions URL
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(directionsUrl));
-            startActivity(intent);
+
+            // Draw a Polyline between the origin and destination on the map
+            googleMap.addPolyline(new PolylineOptions()
+                    .add(originLatLng, destinationLatLng)
+                    .width(5)
+                    .color(Color.BLUE));
+
+            // Move the camera to a position that shows both the origin and destination
+            LatLngBounds.Builder builder = new LatLngBounds.Builder();
+            builder.include(originLatLng);
+            builder.include(destinationLatLng);
+            LatLngBounds bounds = builder.build();
+            int padding = 100; // Padding around the bounds (in pixels)
+            googleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, padding));
         } else {
-            Toast.makeText(MainActivity2.this, "Unable to retrieve current location", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Unable to retrieve current location", Toast.LENGTH_SHORT).show();
         }
         return true;
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == 1) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Permission granted
-                // Initialize location-related functionality here, such as enabling location on the map
-                if (ActivityCompat.checkSelfPermission(MainActivity2.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MainActivity2.this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                    googleMap.setMyLocationEnabled(true);
-                    googleMap.setOnMarkerClickListener(this);
-                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-                    Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                    if (lastKnownLocation != null) {
-                        updateCurrentLocation(lastKnownLocation);
-                    }
-                }
-            } else {
-                // Permission denied
-                // Handle the case where the user denied the permission
-                Toast.makeText(MainActivity2.this, "Permission denied", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
+    private void checkLocationSettings() {
+        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
+                .addLocationRequest(locationRequest);
 
-    private String getDirectionsUrl(LatLng origin, LatLng destination) {
-        String strOrigin = "origin=" + origin.latitude + "," + origin.longitude;
-        String strDestination = "destination=" + destination.latitude + "," + destination.longitude;
-        String sensor = "sensor=false";
-        String parameters = strOrigin + "&" + strDestination + "&" + sensor;
-        String output = "json";
-        String url = "https://maps.googleapis.com/maps/api/directions/" + output + "?" + parameters;
-        return url;
+        SettingsClient client = LocationServices.getSettingsClient(this);
+        Task<LocationSettingsResponse> task = client.checkLocationSettings(builder.build());
+
+        task.addOnSuccessListener(this, locationSettingsResponse -> {
+            // Location settings are satisfied, start location updates
+            startLocationUpdates();
+        });
+
+        task.addOnFailureListener(this, e -> {
+            if (e instanceof ResolvableApiException) {
+                try {
+                    // Prompt the user to enable location services
+                    ResolvableApiException resolvable = (ResolvableApiException) e;
+                    resolvable.startResolutionForResult(MainActivity2.this, 2);
+                } catch (IntentSender.SendIntentException ignored) {
+                }
+            }
+        });
     }
 
     private class Place {

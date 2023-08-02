@@ -33,6 +33,7 @@ import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 public class EditProfile extends AppCompatActivity {
 
@@ -55,6 +56,7 @@ public class EditProfile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
+        Objects.requireNonNull(getSupportActionBar()).hide();
         // Add this line in the onCreate method
         storageReference = FirebaseStorage.getInstance().getReference("profile_images");
         e1 = findViewById(R.id.edittext1);

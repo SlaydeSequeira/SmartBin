@@ -243,7 +243,6 @@ public class LoginActivity extends AppCompatActivity {
                         hashmap.put("token",token);
                         myRef.child(uid).updateChildren(hashmap);
                         checkflag = 1;
-                        checkflag = 1;
 
                     }
                 }

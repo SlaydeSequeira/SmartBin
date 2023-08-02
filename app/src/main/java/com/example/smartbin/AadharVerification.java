@@ -16,6 +16,7 @@ import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import android.os.Bundle;
@@ -79,6 +80,7 @@ public class AadharVerification extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aadhar_verification);
+        Objects.requireNonNull(getSupportActionBar()).hide();
 
         // Initialize Firebase Auth
         FirebaseApp.initializeApp(this);
@@ -189,7 +191,7 @@ public class AadharVerification extends AppCompatActivity {
         dataMap.put("otp", otp);
         dataMap.put("verified", "true");
 
-        // Push data to Firebase
+        // Update the child nodes of the existing user's UID
         reference.updateChildren(dataMap)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -203,4 +205,6 @@ public class AadharVerification extends AppCompatActivity {
                     }
                 });
     }
+
+
 }

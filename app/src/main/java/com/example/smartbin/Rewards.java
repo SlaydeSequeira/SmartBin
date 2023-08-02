@@ -23,6 +23,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Objects;
+
 public class Rewards extends AppCompatActivity {
     String[] data1 = new String[100];
     String[] data2 = new String[100];
@@ -51,6 +53,7 @@ public class Rewards extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(Rewards.this);
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(layoutManager);
+        Objects.requireNonNull(getSupportActionBar()).hide();
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference myRef = firebaseDatabase.getReference("Vposts");

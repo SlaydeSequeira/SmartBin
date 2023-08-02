@@ -14,6 +14,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 public class Help extends AppCompatActivity {
 
@@ -27,7 +28,7 @@ public class Help extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help);
-
+        Objects.requireNonNull(getSupportActionBar()).hide();
         editText1 = findViewById(R.id.edittext1);
         editText2 = findViewById(R.id.edittext2);
         spinner = findViewById(R.id.action_bar_spinner);
