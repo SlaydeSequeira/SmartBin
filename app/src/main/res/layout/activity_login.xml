@@ -78,7 +78,7 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:src="@drawable/ic_android_black_24dp" />
+                        android:src="@drawable/baseline_email_24" />
 
                 </androidx.cardview.widget.CardView>
             </RelativeLayout>
@@ -126,8 +126,9 @@
 
                     <ImageView
                         android:layout_width="match_parent"
+                        android:id="@+id/password_toggle"
                         android:layout_height="match_parent"
-                        android:src="@drawable/ic_android_black_24dp" />
+                        android:src="@drawable/baseline_password_24" />
 
                 </androidx.cardview.widget.CardView>
             </RelativeLayout>

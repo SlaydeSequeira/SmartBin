@@ -89,7 +89,7 @@
                     android:background="@drawable/cir"
                     android:id="@+id/edittext2"
                     android:textColor="@color/black"
-
+                    android:gravity="top"
                     />
 
                 <TextView

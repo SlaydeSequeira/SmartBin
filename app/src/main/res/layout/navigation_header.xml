@@ -252,12 +252,43 @@
             android:layout_marginLeft="01dp"
             />
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/rel8"
+        android:layout_below="@+id/rel7"
+        android:background="@drawable/back"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        >
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/baseline_search_24"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Find Bins"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/black"
+            android:textSize="14dp"
+            android:textStyle="bold"
+
+            />
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/baseline_keyboard_arrow_right_24"
+            android:layout_marginLeft="85dp"
+            />
+    </LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="210dp"
+        android:layout_height="100dp"
         android:background="@drawable/back"
         android:id="@+id/rel4"
-        android:layout_below="@id/rel6"
+        android:layout_below="@id/rel8"
         />
     <LinearLayout
         android:layout_width="match_parent"

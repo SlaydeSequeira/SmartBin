@@ -173,6 +173,7 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:id="@+id/showpass"
                         android:src="@drawable/baseline_password_24" />
 
                 </androidx.cardview.widget.CardView>

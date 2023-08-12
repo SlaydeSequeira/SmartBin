@@ -5,10 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,7 +47,7 @@ public class RegisterPage extends AppCompatActivity {
     FirebaseAuth auth;
     DatabaseReference myRef;
     private GoogleSignInClient mGoogleSignInClient;
-
+    ImageView seepass;
     private static final int RC_SIGN_IN = 9001;
 
     @Override
@@ -53,7 +55,7 @@ public class RegisterPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_page);
         Objects.requireNonNull(getSupportActionBar()).hide();
-
+        seepass = findViewById(R.id.showpass);
         // Initializing Widgets:
         userET = findViewById(R.id.edittext1);
         passET = findViewById(R.id.edittext3);
@@ -67,6 +69,21 @@ public class RegisterPage extends AppCompatActivity {
                 .requestIdToken(getString(R.string.default_web_client_id)) // Replace with your web client ID from Firebase console
                 .requestEmail()
                 .build();
+        seepass.setOnClickListener(new View.OnClickListener() {
+            boolean isPasswordVisible = false;
+
+            @Override
+            public void onClick(View v) {
+                if (isPasswordVisible) {
+                    // If password is currently visible, change it back to hidden
+                   passET.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                } else {
+                    // If password is currently hidden, make it visible
+                    passET.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                }
+                isPasswordVisible = !isPasswordVisible; // Toggle the state
+            }
+        });
 
         // Build the GoogleSignInClient with the options above
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
@@ -179,6 +196,7 @@ public class RegisterPage extends AppCompatActivity {
                     userInfo.put("email", email);
                     userInfo.put("admin", 0);
                     userInfo.put("imageURL", "default");
+                    userInfo.put("points",0);
                     Check();
 
                     usersRef.setValue(userInfo).addOnCompleteListener(new OnCompleteListener<Void>() {

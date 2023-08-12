@@ -7,6 +7,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -47,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
     FirebaseAuth auth;
     FirebaseUser firebaseUser;
     private GoogleSignInClient mGoogleSignInClient;
-
+    ImageView seepass;
     private static final int RC_SIGN_IN = 9001;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +59,7 @@ public class LoginActivity extends AppCompatActivity {
         userETLogin = findViewById(R.id.edittext1);
         passETlogin = findViewById(R.id.edittext2);
         loginBtn    = findViewById(R.id.button);
+        seepass = findViewById(R.id.password_toggle);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id)) // Replace with your web client ID from Firebase console
                 .requestEmail()
@@ -68,6 +70,21 @@ public class LoginActivity extends AppCompatActivity {
 
         // Firebase Auth:
         auth = FirebaseAuth.getInstance();
+        seepass.setOnClickListener(new View.OnClickListener() {
+            boolean isPasswordVisible = false;
+
+            @Override
+            public void onClick(View v) {
+                if (isPasswordVisible) {
+                    // If password is currently visible, change it back to hidden
+                    passETlogin.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                } else {
+                    // If password is currently hidden, make it visible
+                    passETlogin.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                }
+                isPasswordVisible = !isPasswordVisible; // Toggle the state
+            }
+        });
 
 
         image.setOnClickListener(new View.OnClickListener() {

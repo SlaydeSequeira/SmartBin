@@ -224,6 +224,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
         return url;
     }
 
+
     private class Place {
         private String name;
         private double latitude;
