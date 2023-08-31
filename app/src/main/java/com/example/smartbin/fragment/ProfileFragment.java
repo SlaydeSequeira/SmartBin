@@ -63,7 +63,7 @@ public class ProfileFragment extends Fragment {
     private Uri imageUri;
     private StorageTask uploadTask;
 
-    CardView r1,r2,r3,r4;
+    RelativeLayout r1,r2,r3,r4;
     TextView Id;
 
 

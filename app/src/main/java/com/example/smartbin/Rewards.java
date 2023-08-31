@@ -1,20 +1,34 @@
 package com.example.smartbin;
 
+import static androidx.constraintlayout.motion.widget.Debug.getLocation;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.smartbin.R;
 import com.example.smartbin.adapter.RecyclerAdapter;
 import com.example.smartbin.adapter.RecyclerAdapter1;
 import com.example.smartbin.adapter.RecyclerAdapter2;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -37,7 +51,14 @@ public class Rewards extends AppCompatActivity {
 
     String[] Image2 = new String[100];
 
+    private static final int REQUEST_LOCATION_PERMISSION = 1;
 
+    private FusedLocationProviderClient fusedLocationClient;
+    private LocationCallback locationCallback;
+
+
+    private LocationManager locationManager;
+    private LocationListener locationListener;
     int count = 0;
     int count1 = 0;
     ImageView imageView;
@@ -50,6 +71,7 @@ public class Rewards extends AppCompatActivity {
         RecyclerView recyclerView1 = findViewById(R.id.recyclerView1);
         imageView = findViewById(R.id.image);
         t1= findViewById(R.id.text1);
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(Rewards.this);
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(layoutManager);
@@ -131,4 +153,5 @@ public class Rewards extends AppCompatActivity {
             }
         });
     }
+
 }

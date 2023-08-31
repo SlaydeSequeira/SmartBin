@@ -1,4 +1,3 @@
-
 package com.example.smartbin.fragment;
 
 import android.Manifest;
@@ -254,5 +253,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
         double latitude = location.getLatitude();
         double longitude = location.getLongitude();
         String message = "Latitude: " + latitude + "\nLongitude: " + longitude;
+        Toast.makeText(getContext(),message,Toast.LENGTH_SHORT).show();
     }
 }
