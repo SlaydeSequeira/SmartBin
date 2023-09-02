@@ -2,6 +2,7 @@ package com.example.smartbin;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +25,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.Target;
 import com.example.smartbin.adapter.MyPagerAdapter;
 import com.example.smartbin.fragment.HomeFragment;
 import com.example.smartbin.fragment.ProfileFragment;
@@ -61,10 +63,13 @@ public class HomePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
         Objects.requireNonNull(getSupportActionBar()).hide();
-
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
+            getWindow().setStatusBarColor(Color.parseColor("#F6F6F6"));
+        }
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        myRef = FirebaseDatabase.getInstance().getReference("MyUsers").child(firebaseUser.getUid());
-
+        if(firebaseUser!=null) {
+            myRef = FirebaseDatabase.getInstance().getReference("MyUsers").child(firebaseUser.getUid());
+        }
         drawerLayout = findViewById(R.id.my_drawer_layout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, 0, 0);
 
@@ -175,7 +180,11 @@ public class HomePage extends AppCompatActivity {
                 if (user.getImageURL().equals("default")){
                     imageView.setImageResource(R.mipmap.ic_launcher);
                 }else{
-                    Glide.with(HomePage.this).load(user.getImageURL()).into(imageView);
+                    try {
+                        Glide.with(HomePage.this).load(user.getImageURL()).into(imageView);
+                    }catch (Exception e){
+
+                    }
                 }
 
             }
@@ -282,4 +291,7 @@ public class HomePage extends AppCompatActivity {
         finishAffinity();
         System.exit(0);
     }
+
+
+
 }

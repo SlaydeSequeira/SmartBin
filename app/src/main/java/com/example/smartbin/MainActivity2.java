@@ -197,16 +197,15 @@ public class MainActivity2 extends AppCompatActivity implements OnMapReadyCallba
                         LatLng currentLatLng = new LatLng(location.getLatitude(), location.getLongitude());
                         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15));
                     } else {
-                        LatLng defaultLatLng = new LatLng(19.194976, 72.835818);
+                        LatLng defaultLatLng = new LatLng(18.943044, 72.828842);
                         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(defaultLatLng, 15));
                     }
                 }
             });
         } else {
-            LatLng defaultLatLng = new LatLng(19.194976, 72.835818);
+            LatLng defaultLatLng = new LatLng(18.943044, 72.828842);
             googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(defaultLatLng, 15));
         }
     }
 
 }
-

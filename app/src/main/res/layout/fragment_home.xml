@@ -4,17 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity2">
+    tools:context=".MainActivity2"
+    android:background="#F6F6F6"
+    >
 
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="210dp"
+        android:layout_height="match_parent"
         android:layout_above="@+id/thistext"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="15dp"
-        android:layout_marginBottom="20dp">
+        android:layout_marginBottom="10dp">
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPager"
@@ -32,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/card1"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="15dp"
         android:text="Earn and Redeem Points"

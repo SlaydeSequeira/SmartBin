@@ -3,7 +3,7 @@
     android:layout_width="300dp"
     android:layout_height="230dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/rel1"
+    android:background="@drawable/reward"
     android:outlineAmbientShadowColor="#F8F8F8"
     >
 

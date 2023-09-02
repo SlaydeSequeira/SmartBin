@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Define the background for the normal state here -->
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/image"
+        android:src="@drawable/baseline_edit_24"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/image"
+        android:layout_centerVertical="true"
+        android:textStyle="bold"
+        android:layout_marginLeft="20dp"
+        android:textSize="20dp"
+        android:text="Edit Profile"
+        android:textColor="@color/black"
+        />
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="20dp"
+        android:src="@drawable/baseline_keyboard_arrow_right_24"
+        />
+    <!-- Example color -->
+</shape>

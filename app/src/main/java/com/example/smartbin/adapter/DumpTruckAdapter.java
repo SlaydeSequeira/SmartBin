@@ -15,13 +15,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.smartbin.MainActivity2;
 import com.example.smartbin.R;
+import com.example.smartbin.TruckMap;
 
-import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.RecyclerView;
-
-// ...
-
-public class BinAdapter extends RecyclerView.Adapter<BinAdapter.ViewHolder> {
+public class DumpTruckAdapter extends RecyclerView.Adapter<DumpTruckAdapter.ViewHolder>
+{
 
     private final int count;
     String[] Author;
@@ -29,24 +26,26 @@ public class BinAdapter extends RecyclerView.Adapter<BinAdapter.ViewHolder> {
     String[] data;
     Context context;
     String[] picture;
+    private BinAdapter.OnItemClickListener clickListener;
+    private BinAdapter.OnItemSwipeListener swipeListener;
 
-    private OnItemClickListener clickListener;
-    private OnItemSwipeListener swipeListener;
-
-    public BinAdapter(Context context, String[] data, int count, String[] picture, String[] data2, String[] Author) {
+    public DumpTruckAdapter(Context context, String[] data, int count, String[] picture, String[] data2, String[] Author)
+    {
         this.data = data;
-        this.context = context;
-        this.count = count;
+        this.context= context;
+        this.count= count;
         this.data2 = data2;
-        this.picture = picture;
-        this.Author = Author;
+        this.picture=picture;
+        this.Author=Author;
     }
+
+
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.add2, parent, false);
+        LayoutInflater layoutInflater=LayoutInflater.from(parent.getContext());
+        View view = layoutInflater.inflate(R.layout.add2,parent,false);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
@@ -54,26 +53,26 @@ public class BinAdapter extends RecyclerView.Adapter<BinAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int pos) {
 
-        int position = count - 1 - pos;
-        // its in reverse order so the latest post comes on top
-        // for undo reverse do(int position =pos;)
+        int position=count-1-pos;
+        //its in reverse order so the latest post comes on top
+        //for undo reverse do(int position =pos;)
         holder.textView.setText(data[position]);
         holder.textView2.setText(data2[position]);
-        holder.id.setText("Distance: " + Author[position]);
+        holder.id.setText("Distance: "+Author[position]);
         Glide.with(context)
                 .load(picture[position])
-                .placeholder(R.drawable.image)
-                .error(R.drawable.image)
+                .placeholder(R.drawable.imp)
+                .error(R.drawable.imp)
                 .into(holder.imageView);
-
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, MainActivity2.class);
+                Intent intent = new Intent(context, TruckMap.class);
                 // Add any extra data to the intent if needed
                 context.startActivity(intent);
             }
         });
+
     }
 
     @Override
@@ -87,24 +86,20 @@ public class BinAdapter extends RecyclerView.Adapter<BinAdapter.ViewHolder> {
         ImageView imageView;
         TextView id;
         CardView cardView;
-
-
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             textView = itemView.findViewById(R.id.text);
             textView2 = itemView.findViewById(R.id.text2);
-            imageView = itemView.findViewById(R.id.imageinrecycler);
+            imageView= itemView.findViewById(R.id.imageinrecycler);
             id = itemView.findViewById(R.id.text3);
-            cardView = itemView.findViewById(R.id.cardView);
-
+            cardView= itemView.findViewById(R.id.cardView);
         }
     }
-
-    public void setOnItemClickListener(OnItemClickListener listener) {
+    public void setOnItemClickListener(BinAdapter.OnItemClickListener listener) {
         this.clickListener = listener;
     }
 
-    public void setOnItemSwipeListener(OnItemSwipeListener listener) {
+    public void setOnItemSwipeListener(BinAdapter.OnItemSwipeListener listener) {
         this.swipeListener = listener;
     }
 
@@ -115,5 +110,5 @@ public class BinAdapter extends RecyclerView.Adapter<BinAdapter.ViewHolder> {
     public interface OnItemSwipeListener {
         void onItemSwipeLeft(int position);
     }
-
 }
+

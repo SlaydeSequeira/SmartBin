@@ -6,10 +6,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
@@ -36,7 +38,7 @@ public class MainActivity4 extends AppCompatActivity {
     RecyclerView recyclerView;
     EditText editText;
     ImageView imageView;
-
+    BinAdapter binAdapter;
     private FusedLocationProviderClient fusedLocationClient;
 
     @Override
@@ -56,6 +58,9 @@ public class MainActivity4 extends AppCompatActivity {
         editText = findViewById(R.id.edittext);
         imageView = findViewById(R.id.image);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwipeController(binAdapter));
+        itemTouchHelper.attachToRecyclerView(recyclerView);
+
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -161,6 +166,7 @@ public class MainActivity4 extends AppCompatActivity {
                 return false;
             }
         });
+
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -204,5 +210,38 @@ public class MainActivity4 extends AppCompatActivity {
         });
     }
 
+    public class SwipeController extends ItemTouchHelper.Callback {
+        private final BinAdapter adapter;
 
+        public SwipeController(BinAdapter adapter) {
+            this.adapter = adapter;
+        }
+
+        @Override
+        public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+            // Define the swipe directions (left and right)
+            int swipeFlags = ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
+            return makeMovementFlags(0, swipeFlags);
+        }
+
+        @Override
+        public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+            // Do nothing since we don't support moving items
+            return false;
+        }
+
+        @Override
+        public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+            int position = viewHolder.getAdapterPosition();
+            if (direction == ItemTouchHelper.LEFT) {
+                Intent i = new Intent(MainActivity4.this,MainActivity2.class);
+                startActivity(i);
+                finish();
+            } else if (direction == ItemTouchHelper.RIGHT) {
+                Intent i = new Intent(MainActivity4.this,MainActivity2.class);
+                startActivity(i);
+                finish();
+            }
+        }
+    }
 }
