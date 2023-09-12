@@ -211,6 +211,13 @@ public class LoginActivity extends AppCompatActivity {
                                 // Proceed to the next activity or perform any other action
                                 Intent intent = new Intent(LoginActivity.this, HomePage.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                HashMap<String, Object> map = new HashMap<>();
+                                map.put("loc", 0);
+                                map.put("redeemed", 0);
+                                map.put("received", 0);
+
+                                usersRef.child("points").setValue(map); // Use setValue to set the entire 'points' node
+
                                 startActivity(intent);
                                 finish();
                             } else {
@@ -274,7 +281,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private int RandomGenerator() {
         Random r = new Random();
-        int token=r.nextInt(1000000);
+        int token=r.nextInt(899999)+100000;
         return token;
     }
 }

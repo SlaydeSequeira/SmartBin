@@ -196,7 +196,6 @@ public class RegisterPage extends AppCompatActivity {
                     userInfo.put("email", email);
                     userInfo.put("admin", 0);
                     userInfo.put("imageURL", "default");
-                    userInfo.put("points",0);
                     Check();
 
                     usersRef.setValue(userInfo).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -207,6 +206,13 @@ public class RegisterPage extends AppCompatActivity {
                                 // Proceed to the next activity or perform any other action
                                 Intent intent = new Intent(RegisterPage.this, HomePage.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                HashMap<String, Object> map = new HashMap<>();
+                                map.put("loc", 0);
+                                map.put("redeemed", 0);
+                                map.put("received", 0);
+
+                                myRef.child("points").setValue(map); // Use setValue to set the entire 'points' node
+
                                 startActivity(intent);
                                 finish();
                             } else {
@@ -307,6 +313,12 @@ public class RegisterPage extends AppCompatActivity {
                                     if (task.isSuccessful()){
                                         Intent i = new Intent(RegisterPage.this, HomePage.class);
                                         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        HashMap<String, Object> map = new HashMap<>();
+                                        map.put("loc", 0);
+                                        map.put("redeemed", 0);
+                                        map.put("received", 0);
+
+                                        myRef.child("points").setValue(map); // Use setValue to set the entire 'points' node
                                         startActivity(i);
                                         finish();
                                     }

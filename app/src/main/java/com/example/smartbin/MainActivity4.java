@@ -13,8 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -33,6 +35,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class MainActivity4 extends AppCompatActivity {
     RecyclerView recyclerView;
@@ -45,6 +48,9 @@ public class MainActivity4 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main4);
+        Objects.requireNonNull(getSupportActionBar()).hide();
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
+            getWindow().setStatusBarColor(Color.parseColor("#F6F6F6"));}
         recyclerView = findViewById(R.id.recyclerView1);
         String idk[] = new String[100];
         String location[] = new String[100];
@@ -85,8 +91,6 @@ public class MainActivity4 extends AppCompatActivity {
                                     ", Longitude = " + userLongitude;
                             Toast.makeText(MainActivity4.this, toastMessage, Toast.LENGTH_LONG).show();
                             // Logic to handle location object
-                        } else {
-                            Toast.makeText(MainActivity4.this, "no", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

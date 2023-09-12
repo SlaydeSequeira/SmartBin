@@ -92,6 +92,41 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import android.content.ContentResolver;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.provider.MediaStore;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import java.util.HashMap;
+import java.util.Objects;
+
 public class ProfileFragment extends Fragment {
 
     TextView username;
@@ -136,7 +171,7 @@ public class ProfileFragment extends Fragment {
         r3 = view.findViewById(R.id.rel3);
         r4 = view.findViewById(R.id.rel4);
         r5 = view.findViewById(R.id.rel5);
-        FrameLayout fm= view.findViewById(R.id.fragment_container);
+        FrameLayout fm = view.findViewById(R.id.fragment_container);
 
         r5.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,8 +222,10 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String a = String.valueOf(snapshot.child("token").getValue());
-                String b = String.valueOf(snapshot.child("points").getValue());
-                Pts.setText(b + " points");
+                String b = String.valueOf(snapshot.child("points").child("redeemed").getValue());
+                String c = String.valueOf(snapshot.child("points").child("received").getValue());
+                int d = Integer.parseInt(c) - Integer.parseInt(b);
+                Pts.setText(d + " points");
                 Id.setText("ID: " + a);
             }
 
@@ -202,12 +239,14 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Users user = dataSnapshot.getValue(Users.class);
-                username.setText(user.getUsername());
+                if (user != null) {
+                    username.setText(user.getUsername());
 
-                if (user.getImageURL().equals("default")) {
-                    imageView.setImageResource(R.mipmap.ic_launcher);
-                } else {
-                    Glide.with(getContext()).load(user.getImageURL()).into(imageView);
+                    if ("default".equals(user.getImageURL())) {
+                        imageView.setImageResource(R.mipmap.ic_launcher);
+                    } else {
+                        Glide.with(requireContext()).load(user.getImageURL()).into(imageView);
+                    }
                 }
             }
 
@@ -216,7 +255,6 @@ public class ProfileFragment extends Fragment {
 
             }
         });
-
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -230,7 +268,7 @@ public class ProfileFragment extends Fragment {
         return view;
     }
 
-     // Add this variable to track fragment state
+    // Add this variable to track fragment state
 
     private void togglePicFragment() {
         if (isPicFragmentOpen) {
@@ -249,7 +287,7 @@ public class ProfileFragment extends Fragment {
             transaction.addToBackStack(null);
             transaction.commit();
             isPicFragmentOpen = true;
-            Toast.makeText(getActivity(),"Tap Image again to close",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Tap Image again to close", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -269,13 +307,13 @@ public class ProfileFragment extends Fragment {
     }
 
     private String getFileExtension(Uri uri) {
-        ContentResolver contentResolver = getContext().getContentResolver();
+        ContentResolver contentResolver = requireContext().getContentResolver();
         MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
     }
 
     private void UploadMyImage() {
-        ProgressDialog progressDialog = new ProgressDialog(getContext());
+        ProgressDialog progressDialog = new ProgressDialog(requireContext());
         progressDialog.setMessage("Uploading");
         progressDialog.show();
 
@@ -288,7 +326,7 @@ public class ProfileFragment extends Fragment {
                 @Override
                 public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
                     if (!task.isSuccessful()) {
-                        throw task.getException();
+                        throw Objects.requireNonNull(task.getException());
                     }
                     return fileReference.getDownloadUrl();
                 }
@@ -305,18 +343,18 @@ public class ProfileFragment extends Fragment {
                         reference.updateChildren(map);
                         progressDialog.dismiss();
                     } else {
-                        Toast.makeText(getContext(), "Failed!!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(requireContext(), "Failed!!", Toast.LENGTH_SHORT).show();
                     }
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
                 }
             });
         } else {
-            Toast.makeText(getContext(), "No Image Selected", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), "No Image Selected", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -326,7 +364,7 @@ public class ProfileFragment extends Fragment {
         if (requestCode == IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             imageUri = data.getData();
             if (uploadTask != null && uploadTask.isInProgress()) {
-                Toast.makeText(getContext(), "Upload in progress..", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), "Upload in progress..", Toast.LENGTH_SHORT).show();
             } else {
                 UploadMyImage();
             }

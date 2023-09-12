@@ -85,8 +85,10 @@ public class Rewards extends AppCompatActivity {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String b= String.valueOf(snapshot.child("points").getValue());
-                t1.setText("Total Points: "+b);
+                String b = String.valueOf(snapshot.child("points").child("redeemed").getValue());
+                String c = String.valueOf(snapshot.child("points").child("received").getValue());
+                int d= Integer.parseInt(c)-Integer.parseInt(b);
+                t1.setText("Total Points: "+d);
             }
 
             @Override

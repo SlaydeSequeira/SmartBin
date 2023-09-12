@@ -27,6 +27,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.Target;
 import com.example.smartbin.adapter.MyPagerAdapter;
+import com.example.smartbin.fragment.EventFragment;
 import com.example.smartbin.fragment.HomeFragment;
 import com.example.smartbin.fragment.ProfileFragment;
 import com.example.smartbin.model.Users;
@@ -109,11 +110,13 @@ public class HomePage extends AppCompatActivity {
 
         MyPagerAdapter pagerAdapter = new MyPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         pagerAdapter.addFragment(new HomeFragment(), "Home");
+        pagerAdapter.addFragment(new EventFragment(),"Event");
         pagerAdapter.addFragment(new ProfileFragment(),"Profile");
         viewPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.getTabAt(0).setIcon(R.drawable.baseline_home_24);
-        tabLayout.getTabAt(1).setIcon(R.drawable.baseline_person_24);
+        tabLayout.getTabAt(1).setIcon(R.drawable.baseline_event_24);
+        tabLayout.getTabAt(2).setIcon(R.drawable.baseline_person_24);
 
         navigationView = findViewById(R.id.navigation_view);
         View headerView = navigationView.getHeaderView(0);
@@ -158,10 +161,12 @@ public class HomePage extends AppCompatActivity {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String a= String.valueOf(snapshot.child("token").getValue());
-                String b= String.valueOf(snapshot.child("points").getValue());
+                String a = String.valueOf(snapshot.child("token").getValue());
+                String b = String.valueOf(snapshot.child("points").child("redeemed").getValue());
+                String c = String.valueOf(snapshot.child("points").child("received").getValue());
+                int d= Integer.parseInt(c)-Integer.parseInt(b);
                 Id.setText("ID: "+a);
-                Pts.setText(b+" Points");
+                Pts.setText(d+" Points");
             }
 
             @Override
@@ -203,6 +208,7 @@ public class HomePage extends AppCompatActivity {
                         FirebaseAuth.getInstance().signOut();
                         startActivity(new Intent(HomePage.this, MainActivity.class)
                                 .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                        finish();
                         break;
 
                     case R.id.maps:
@@ -217,7 +223,7 @@ public class HomePage extends AppCompatActivity {
         r1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewPager.setCurrentItem(1);
+                viewPager.setCurrentItem(2);
                 drawerLayout.closeDrawer(GravityCompat.START);
             }
         });
@@ -243,11 +249,7 @@ public class HomePage extends AppCompatActivity {
                         .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             }
         });
-
-
     }
-
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
@@ -255,7 +257,6 @@ public class HomePage extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
     private void replace(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -263,35 +264,26 @@ public class HomePage extends AppCompatActivity {
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
-
     private void CheckStatus(String status) {
         myRef = FirebaseDatabase.getInstance().getReference("MyUsers").child(firebaseUser.getUid());
-
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("status", status);
-
         myRef.updateChildren(hashMap);
     }
-
     @Override
     protected void onResume() {
         super.onResume();
         CheckStatus("online");
     }
-
     @Override
     protected void onPause() {
         super.onPause();
         CheckStatus("Offline");
     }
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         finishAffinity();
         System.exit(0);
     }
-
-
-
 }

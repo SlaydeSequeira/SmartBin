@@ -91,11 +91,14 @@ public class MainActivity3 extends AppCompatActivity {
         double x1 = 19.194976, y1 = 72.835818;
         double[] x2 = new double[100];
         double[] y2 = new double[100];
+        int c=0;
+        dumpTruckAdapter = new DumpTruckAdapter(MainActivity3.this, address, c, idk, location, dis);
+        // Set up ItemTouchHelper with dumpTruckAdapter
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new MainActivity3.SwipeController(dumpTruckAdapter));
+        itemTouchHelper.attachToRecyclerView(recyclerView);
         editText = findViewById(R.id.edittext);
         imageView = findViewById(R.id.image);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new MainActivity3.SwipeController(dumpTruckAdapter));
-        itemTouchHelper.attachToRecyclerView(recyclerView);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -119,8 +122,6 @@ public class MainActivity3 extends AppCompatActivity {
                                     ", Longitude = " + userLongitude;
                             Toast.makeText(MainActivity3.this, toastMessage, Toast.LENGTH_LONG).show();
                             // Logic to handle location object
-                        } else {
-                            Toast.makeText(MainActivity3.this, "no", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -266,12 +267,21 @@ public class MainActivity3 extends AppCompatActivity {
         @Override
         public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
             int position = viewHolder.getAdapterPosition();
+
             if (direction == ItemTouchHelper.LEFT) {
+                int swipedItemAddress = adapter.getAddress(position);
+                String a= String.valueOf(swipedItemAddress);
+                // Now you have the address of the swiped item, you can use it as needed
                 Intent i = new Intent(MainActivity3.this, TruckMap.class);
+                i.putExtra("swiped", swipedItemAddress);
                 startActivity(i);
                 finish();
             } else if (direction == ItemTouchHelper.RIGHT) {
-                Intent i = new Intent(MainActivity3.this,TruckMap.class);
+                int swipedItemAddress = adapter.getAddress(position);
+                // Now you have the location of the swiped item, you can use it as needed
+                String a= String.valueOf(swipedItemAddress);
+                Intent i = new Intent(MainActivity3.this, TruckMap.class);
+                i.putExtra("swiped", swipedItemAddress);
                 startActivity(i);
                 finish();
             }

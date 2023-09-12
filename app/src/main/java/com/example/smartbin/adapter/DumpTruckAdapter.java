@@ -13,7 +13,6 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.smartbin.MainActivity2;
 import com.example.smartbin.R;
 import com.example.smartbin.TruckMap;
 
@@ -68,7 +67,7 @@ public class DumpTruckAdapter extends RecyclerView.Adapter<DumpTruckAdapter.View
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, TruckMap.class);
-                // Add any extra data to the intent if needed
+                intent.putExtra("swiped", position);
                 context.startActivity(intent);
             }
         });
@@ -110,5 +109,12 @@ public class DumpTruckAdapter extends RecyclerView.Adapter<DumpTruckAdapter.View
     public interface OnItemSwipeListener {
         void onItemSwipeLeft(int position);
     }
+
+
+        public int getAddress(int position) {
+            return position;
+        }
+
+
 }
 
