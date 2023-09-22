@@ -1,5 +1,4 @@
 package com.example.smartbin.model;
-
 public class Chat {
 
     private String sender;
@@ -7,7 +6,7 @@ public class Chat {
     private String message;
     private boolean isseen;
 
-    public Chat(String sender, String receiver, String message,boolean isseen) {
+    public Chat(String sender, String receiver, String message, boolean isseen) {
         this.sender = sender;
         this.receiver = receiver;
         this.message = message;
@@ -16,7 +15,6 @@ public class Chat {
 
     public Chat() {
     }
-
 
     public String getSender() {
         return sender;

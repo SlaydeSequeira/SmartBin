@@ -143,7 +143,7 @@
             android:layout_marginLeft="20dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:cardCornerRadius="20px"
+            app:cardCornerRadius="200px"
             android:backgroundTint="@color/white"
             >
 

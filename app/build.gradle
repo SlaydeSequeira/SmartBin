@@ -42,6 +42,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
     implementation platform('com.google.firebase:firebase-bom:31.1.1')
+    implementation 'org.apache.commons:commons-math3:3.6.1'
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-database'
     implementation 'com.google.firebase:firebase-auth:20.0.0' // Update to the latest version

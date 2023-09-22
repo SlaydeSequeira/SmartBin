@@ -10,7 +10,6 @@ import androidx.viewpager2.widget.ViewPager2;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.smartbin.R;
-
 public class ImageSliderAdapter extends RecyclerView.Adapter<ImageSliderAdapter.ImageViewHolder> {
     private Context context;
     private int[] images;
@@ -31,6 +30,9 @@ public class ImageSliderAdapter extends RecyclerView.Adapter<ImageSliderAdapter.
     public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
         int imageRes = images[position];
         holder.imageView.setImageResource(imageRes);
+
+        // Set the scale type to FIT_XY
+        holder.imageView.setScaleType(ImageView.ScaleType.FIT_XY);
     }
 
     @Override

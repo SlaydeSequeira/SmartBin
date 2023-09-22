@@ -25,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.smartbin.adapter.BinAdapter;
+import com.example.smartbin.adapter.TempAdapter;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -52,13 +53,14 @@ public class MainActivity4 extends AppCompatActivity {
         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
             getWindow().setStatusBarColor(Color.parseColor("#F6F6F6"));}
         recyclerView = findViewById(R.id.recyclerView1);
+        RecyclerView recyclerView2 = findViewById(R.id.recyclerView2);
         String idk[] = new String[100];
         String location[] = new String[100];
         String address[] = new String[100];
         String xcod[] = new String[100];
         String ycod[] = new String[100];
         String dis[] = new String[100];
-        double x1 = 19.194976, y1 = 72.835818;
+        double x1 = 19.044488, y1 = 72.820551;
         double[] x2 = new double[100];
         double[] y2 = new double[100];
         editText = findViewById(R.id.edittext);
@@ -86,10 +88,12 @@ public class MainActivity4 extends AppCompatActivity {
                         if (location != null) {
                             double userLatitude = location.getLatitude();
                             double userLongitude = location.getLongitude();
+                            double a=userLatitude;
+                            double b=userLongitude;
 
                             String toastMessage = "User Coordinates: Latitude = " + userLatitude +
                                     ", Longitude = " + userLongitude;
-                            Toast.makeText(MainActivity4.this, toastMessage, Toast.LENGTH_LONG).show();
+                            //Toast.makeText(MainActivity4.this, toastMessage, Toast.LENGTH_LONG).show();
                             // Logic to handle location object
                         }
                     }
@@ -101,6 +105,7 @@ public class MainActivity4 extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String count = String.valueOf(snapshot.child("count").getValue());
                 int c = Integer.parseInt(count);
+
                 for (int i = 0; i < c; i++) {
                     String temp = String.valueOf(i);
                     location[i] = String.valueOf(snapshot.child("loc").child(temp).getValue());
@@ -120,6 +125,14 @@ public class MainActivity4 extends AppCompatActivity {
                 recyclerView.setLayoutManager(layoutManager1);
                 BinAdapter binAdapter = new BinAdapter(MainActivity4.this, address, c, idk, location, dis);
                 recyclerView.setAdapter(binAdapter);
+
+
+                // Create a new LinearLayoutManager instance for recyclerView2
+                LinearLayoutManager layoutManager2 = new LinearLayoutManager(MainActivity4.this);
+                layoutManager2.setOrientation(LinearLayoutManager.VERTICAL);
+                recyclerView2.setLayoutManager(layoutManager2);
+                TempAdapter tempAdapter = new TempAdapter(MainActivity4.this, address, c, idk, location, dis);
+                recyclerView2.setAdapter(tempAdapter);
             }
 
             @Override
@@ -160,6 +173,13 @@ public class MainActivity4 extends AppCompatActivity {
                                 filteredDistances.toArray(new String[0]));
 
                         recyclerView.setAdapter(binAdapter);
+
+                        // Create a new LinearLayoutManager instance for recyclerView2
+                        LinearLayoutManager layoutManager2 = new LinearLayoutManager(MainActivity4.this);
+                        layoutManager2.setOrientation(LinearLayoutManager.VERTICAL);
+                        recyclerView2.setLayoutManager(layoutManager2);
+                        TempAdapter tempAdapter = new TempAdapter(MainActivity4.this, address, filteredAddresses.size(), idk, location, dis);
+                        recyclerView2.setAdapter(tempAdapter);
                     }
 
                     @Override
@@ -202,6 +222,13 @@ public class MainActivity4 extends AppCompatActivity {
                                 filteredDistances.toArray(new String[0]));
 
                         recyclerView.setAdapter(binAdapter);
+
+                        // Create a new LinearLayoutManager instance for recyclerView2
+                        LinearLayoutManager layoutManager2 = new LinearLayoutManager(MainActivity4.this);
+                        layoutManager2.setOrientation(LinearLayoutManager.VERTICAL);
+                        recyclerView2.setLayoutManager(layoutManager2);
+                        TempAdapter tempAdapter = new TempAdapter(MainActivity4.this, address, filteredAddresses.size(), idk, location, dis);
+                        recyclerView2.setAdapter(tempAdapter);
                     }
 
                     @Override
@@ -238,6 +265,7 @@ public class MainActivity4 extends AppCompatActivity {
         public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
             int position = viewHolder.getAdapterPosition();
             if (direction == ItemTouchHelper.LEFT) {
+
                 Intent i = new Intent(MainActivity4.this,MainActivity2.class);
                 startActivity(i);
                 finish();

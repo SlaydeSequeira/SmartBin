@@ -51,6 +51,12 @@
             android:layout_height="match_parent"
             android:id="@+id/recyclerView1"
             />
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/recyclerView2"
+            android:elevation="-1dp"
+            />
     </androidx.cardview.widget.CardView>
 
 </RelativeLayout>

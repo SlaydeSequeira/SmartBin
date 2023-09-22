@@ -23,11 +23,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.smartbin.AccountHistory;
 import com.example.smartbin.MainActivity2;
 import com.example.smartbin.R;
 import com.example.smartbin.Rewards;
 import com.example.smartbin.adapter.ImageSliderAdapter;
+import com.example.smartbin.model.Users;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -35,6 +37,13 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,9 +52,10 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
     private LocationManager locationManager;
     private LocationListener locationListener;
     private Marker marker;
-    private int[] images = {R.drawable.img, R.drawable.pic2, R.drawable.pic3};
+    private int[] images = {R.drawable.pic1, R.drawable.pic2};
     private CardView c1, c2;
-
+    ImageView i1;
+    TextView t1;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
@@ -55,6 +65,33 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
         ImageSliderAdapter adapter = new ImageSliderAdapter(getActivity(), images);
         c1 = rootView.findViewById(R.id.card1);
         c2 = rootView.findViewById(R.id.card2);
+        t1 = rootView.findViewById(R.id.mytext);
+        i1 = rootView.findViewById(R.id.myimg);
+        FirebaseDatabase firebaseDatabase= FirebaseDatabase.getInstance();
+        FirebaseUser fuser;
+        fuser = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("MyUsers")
+                .child(fuser.getUid());
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Users user = dataSnapshot.getValue(Users.class);
+                if (user != null) {
+                    t1.setText("Hello, "+user.getUsername());
+
+                    if ("default".equals(user.getImageURL())) {
+                        imageView.setImageResource(R.mipmap.ic_launcher);
+                    } else {
+                        Glide.with(requireContext()).load(user.getImageURL()).into(i1);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
         c1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -253,6 +290,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
         double latitude = location.getLatitude();
         double longitude = location.getLongitude();
         String message = "Latitude: " + latitude + "\nLongitude: " + longitude;
-        Toast.makeText(getContext(),message,Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(getContext(),message,Toast.LENGTH_SHORT).show();
     }
 }

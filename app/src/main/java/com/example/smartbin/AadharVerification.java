@@ -128,7 +128,9 @@ public class AadharVerification extends AppCompatActivity {
             }
         });
 
-        // Set click listener for the button to save data to Firebase
+// ...
+
+// Set click listener for the button to save data to Firebase
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -139,15 +141,21 @@ public class AadharVerification extends AppCompatActivity {
                 // Verify the OTP
                 if (!TextUtils.isEmpty(verificationId) && !TextUtils.isEmpty(otp)) {
                     PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, otp);
-                    signInWithPhoneAuthCredential(credential, aadharData, phoneNumber);
+
+                    // Save data to Firebase after successful OTP verification
+                    saveDataToFirebase(aadharData, phoneNumber, "verified");
                 } else {
                     Toast.makeText(AadharVerification.this, "Please enter the OTP first.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-    }
 
-    private void requestPhoneNumberVerification(String phoneNumber) {
+// Remove the signInWithPhoneAuthCredential method and its associated code
+
+// ...
+
+    }
+        private void requestPhoneNumberVerification(String phoneNumber) {
         PhoneAuthOptions options =
                 PhoneAuthOptions.newBuilder(mAuth)
                         .setPhoneNumber(phoneNumber)
@@ -179,7 +187,6 @@ public class AadharVerification extends AppCompatActivity {
                     }
                 });
     }
-
     private void saveDataToFirebase(String aadharData, String phoneNumber, String otp) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("MyUsers")
                 .child(fuser.getUid());
@@ -205,6 +212,5 @@ public class AadharVerification extends AppCompatActivity {
                     }
                 });
     }
-
 
 }

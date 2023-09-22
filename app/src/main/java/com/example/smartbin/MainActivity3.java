@@ -28,6 +28,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
+import com.example.smartbin.adapter.TempAdapter;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -82,6 +84,7 @@ public class MainActivity3 extends AppCompatActivity {
         setContentView(R.layout.activity_main3);
         Objects.requireNonNull(getSupportActionBar()).hide();
         recyclerView = findViewById(R.id.recyclerView1);
+        RecyclerView recyclerView2 = findViewById(R.id.recyclerView2);
         String idk[] = new String[100];
         String location[] = new String[100];
         String address[] = new String[100];
@@ -149,8 +152,17 @@ public class MainActivity3 extends AppCompatActivity {
                 LinearLayoutManager layoutManager1 = new LinearLayoutManager(MainActivity3.this);
                 layoutManager1.setOrientation(LinearLayoutManager.VERTICAL);
                 recyclerView.setLayoutManager(layoutManager1);
+
                 DumpTruckAdapter dumpTruckAdapter = new DumpTruckAdapter(MainActivity3.this, address, c, idk, location, dis);
                 recyclerView.setAdapter(dumpTruckAdapter);
+
+                // Create a new LinearLayoutManager instance for recyclerView2
+                LinearLayoutManager layoutManager2 = new LinearLayoutManager(MainActivity3.this);
+                layoutManager2.setOrientation(LinearLayoutManager.VERTICAL);
+                recyclerView2.setLayoutManager(layoutManager2);
+                TempAdapter tempAdapter = new TempAdapter(MainActivity3.this, address, c, idk, location, dis);
+                recyclerView2.setAdapter(tempAdapter);
+
 
             }
 
@@ -192,6 +204,13 @@ public class MainActivity3 extends AppCompatActivity {
                                 filteredDistances.toArray(new String[0]));
 
                         recyclerView.setAdapter(dumpTruckAdapter);
+
+                        // Create a new LinearLayoutManager instance for recyclerView2
+                        LinearLayoutManager layoutManager2 = new LinearLayoutManager(MainActivity3.this);
+                        layoutManager2.setOrientation(LinearLayoutManager.VERTICAL);
+                        recyclerView2.setLayoutManager(layoutManager2);
+                        TempAdapter tempAdapter = new TempAdapter(MainActivity3.this, address, filteredAddresses.size(), idk, location, dis);
+                        recyclerView2.setAdapter(tempAdapter);
                     }
 
                     @Override
@@ -233,6 +252,13 @@ public class MainActivity3 extends AppCompatActivity {
                                 filteredDistances.toArray(new String[0]));
 
                         recyclerView.setAdapter(dumpTruckAdapter);
+
+                        // Create a new LinearLayoutManager instance for recyclerView2
+                        LinearLayoutManager layoutManager2 = new LinearLayoutManager(MainActivity3.this);
+                        layoutManager2.setOrientation(LinearLayoutManager.VERTICAL);
+                        recyclerView2.setLayoutManager(layoutManager2);
+                        TempAdapter tempAdapter = new TempAdapter(MainActivity3.this, address, filteredAddresses.size(), idk, location, dis);
+                        recyclerView2.setAdapter(tempAdapter);
                     }
 
                     @Override

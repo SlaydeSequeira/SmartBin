@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -30,11 +29,13 @@ import com.bumptech.glide.Glide;
 import com.example.smartbin.AadharVerification;
 import com.example.smartbin.AccountHistory;
 import com.example.smartbin.EditProfile;
-import com.example.smartbin.HomePage;
 import com.example.smartbin.MainActivity;
 import com.example.smartbin.MainActivity3;
+import com.example.smartbin.MessageActivity;
 import com.example.smartbin.R;
 import com.example.smartbin.model.Users;
+import com.example.smartbin.prototype;
+import com.example.smartbin.prototype2;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -53,78 +54,8 @@ import com.google.firebase.storage.UploadTask;
 
 import java.util.HashMap;
 
-import android.app.ProgressDialog;
-import android.content.ContentResolver;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
 import android.provider.MediaStore;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.webkit.MimeTypeMap;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.activity.OnBackPressedCallback;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
-import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-
-import android.content.ContentResolver;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
-import android.provider.MediaStore;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-import androidx.activity.OnBackPressedCallback;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-import java.util.HashMap;
 import java.util.Objects;
 
 public class ProfileFragment extends Fragment {
@@ -165,6 +96,8 @@ public class ProfileFragment extends Fragment {
         TextView Pts = view.findViewById(R.id.points);
         imageView = view.findViewById(R.id.profile_image2);
         username = view.findViewById(R.id.username);
+        CardView c1 = view.findViewById(R.id.hidden);
+        CardView c2 = view.findViewById(R.id.hidden1);
         Id = view.findViewById(R.id.Id);
         r1 = view.findViewById(R.id.rel1);
         r2 = view.findViewById(R.id.rel2);
@@ -193,6 +126,20 @@ public class ProfileFragment extends Fragment {
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(), AccountHistory.class);
                 startActivity(i);
+            }
+        });
+        c1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), prototype.class);
+                //startActivity(i);
+            }
+        });
+        c2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), prototype2.class);
+                //startActivity(i);
             }
         });
         r3.setOnClickListener(new View.OnClickListener() {

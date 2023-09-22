@@ -7,11 +7,13 @@
     android:background="#FFFFFF"
     android:outlineAmbientShadowColor="#F8F8F8"
     >
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="130dp"
         android:background="@drawable/reward"
         android:layout_margin="5dp"
+        android:id="@+id/rel"
         >
 
         <RelativeLayout
