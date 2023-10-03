@@ -8,7 +8,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     tools:ignore="HardcodedText"
-    android:background="#F6F6F6"
     >
 
     <!-- Main Content -->
@@ -61,18 +60,15 @@
             android:layout_height="50dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="#F6F6F6"
             app:cardCornerRadius="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginBottom="20dp"
             >
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
 >
 
                 <!-- TabLayout -->

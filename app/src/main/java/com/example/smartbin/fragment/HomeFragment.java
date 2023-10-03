@@ -75,17 +75,22 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Users user = dataSnapshot.getValue(Users.class);
-                if (user != null) {
-                    t1.setText("Hello, "+user.getUsername());
+                // Check if the fragment is attached to an activity
+                if (isAdded()) {
+                    Users user = dataSnapshot.getValue(Users.class);
+                    if (user != null) {
+                        t1.setText("Hello, " + user.getUsername());
 
-                    if ("default".equals(user.getImageURL())) {
-                        imageView.setImageResource(R.mipmap.ic_launcher);
-                    } else {
-                        Glide.with(requireContext()).load(user.getImageURL()).into(i1);
+                        if ("default".equals(user.getImageURL())) {
+                            imageView.setImageResource(R.mipmap.ic_launcher);
+                        } else {
+                            // Use requireContext() here since it's safe
+                            Glide.with(requireContext()).load(user.getImageURL()).into(i1);
+                        }
                     }
                 }
             }
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {

@@ -78,7 +78,6 @@
                 android:id="@+id/rel2"
                 android:layout_below="@id/rel1"
                 >
-
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -90,7 +89,7 @@
                     android:id="@+id/edittext2"
                     android:textColor="@color/black"
                     android:gravity="top"
-                    />
+                    android:paddingTop="5dp" />
 
                 <TextView
                     android:layout_width="wrap_content"

@@ -211,7 +211,7 @@ public class RegisterPage extends AppCompatActivity {
                                 map.put("redeemed", 0);
                                 map.put("received", 0);
 
-                                myRef.child("points").setValue(map); // Use setValue to set the entire 'points' node
+                                usersRef.child("points").setValue(map); // Use setValue to set the entire 'points' node
 
                                 startActivity(intent);
                                 finish();
@@ -229,7 +229,6 @@ public class RegisterPage extends AppCompatActivity {
             }
         });
     }
-
 
     private void Check() {
         int t= RandomGenerator();

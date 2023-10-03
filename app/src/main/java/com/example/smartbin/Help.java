@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -34,7 +36,9 @@ public class Help extends AppCompatActivity {
         spinner = findViewById(R.id.action_bar_spinner);
         submitButton = findViewById(R.id.button);
         firebaseDatabase=FirebaseDatabase.getInstance();
-        DatabaseReference myRef= firebaseDatabase.getReference("Complaints");
+        FirebaseUser fuser;
+        fuser = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference myRef= firebaseDatabase.getReference("Complaints").child(fuser.getUid());
 
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
