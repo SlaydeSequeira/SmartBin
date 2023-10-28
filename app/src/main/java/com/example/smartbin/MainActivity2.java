@@ -164,18 +164,24 @@ public class MainActivity2 extends AppCompatActivity implements OnMapReadyCallba
             return true;
         }
 
-        Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        if (lastKnownLocation != null) {
-            LatLng destinationLatLng = marker.getPosition();
-            LatLng originLatLng = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
-            String directionsUrl = getDirectionsUrl(originLatLng, destinationLatLng);
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(directionsUrl));
-            startActivity(intent);
-        } else {
-            Toast.makeText(this, "Unable to retrieve current location", Toast.LENGTH_SHORT).show();
+        try {
+            Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            if (lastKnownLocation != null) {
+                LatLng destinationLatLng = marker.getPosition();
+                LatLng originLatLng = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
+                String directionsUrl = getDirectionsUrl(originLatLng, destinationLatLng);
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(directionsUrl));
+                startActivity(intent);
+            } else {
+                Toast.makeText(this, "Unable to retrieve current location", Toast.LENGTH_SHORT).show();
+            }
+        } catch (SecurityException e) {
+            // Handle the exception, for example, display a message to the user.
+            Toast.makeText(this, "Unable to retrieve current location due to GPS permission issue", Toast.LENGTH_SHORT).show();
         }
         return true;
     }
+
 
     private String getDirectionsUrl(LatLng origin, LatLng destination) {
         String strOrigin = "origin=" + origin.latitude + "," + origin.longitude;
@@ -233,6 +239,7 @@ public class MainActivity2 extends AppCompatActivity implements OnMapReadyCallba
                 ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
             if (location1 == null) {
+
                 fusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
                     @Override
                     public void onSuccess(Location location) {

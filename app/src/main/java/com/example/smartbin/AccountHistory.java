@@ -30,9 +30,10 @@ public class AccountHistory extends AppCompatActivity {
     String[] Author = new String[100];
     int count;
     RecyclerView recyclerView;
-    ImageView i1;;
+    ImageView i1;
     RecyclerAdapter adapter;
     TextView t1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,37 +41,61 @@ public class AccountHistory extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         Objects.requireNonNull(getSupportActionBar()).hide();
 
-        t1= findViewById(R.id.text1);
+        t1 = findViewById(R.id.text1);
         i1 = findViewById(R.id.image);
         i1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(AccountHistory.this,HomePage.class);
+                Intent i = new Intent(AccountHistory.this, HomePage.class);
                 startActivity(i);
                 finish();
             }
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(AccountHistory.this));
-        count=12;
-        for(int i=0;i<100;i++)
-        {
-            Titles[i]="Points Earned by Disposing Waste";
-            Description[i]="+20 Pts";
-            Image[i]="Trophy";
-            Author[i]="Location:At Frcrce Dustbin";
-        }
-        adapter = new RecyclerAdapter(AccountHistory.this, Titles, count, Image, Description,Author);
-        recyclerView.setAdapter(adapter);
-        FirebaseUser fuser;
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        FirebaseUser fuser = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference myRef = firebaseDatabase.getReference("MyUsers").child(fuser.getUid()).child("points").child("received");
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method will be called when the data is available.
+                if (dataSnapshot.exists()) {
+                    // Get the value from the DataSnapshot
+
+                    // Now you can use the receivedPoints variable
+                    // for whatever you need to do with the value.
+                } else {
+                    // The data doesn't exist at this reference.
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Handle any errors that may occur.
+            }
+        });
         fuser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("MyUsers").child(fuser.getUid());
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String b = String.valueOf(snapshot.child("points").child("redeemed").getValue());
-                String c = String.valueOf(snapshot.child("points").child("received").getValue());
-                int d= Integer.parseInt(c)-Integer.parseInt(b);
-                t1.setText("Total Points: "+d);
+                Long redeemedPoints = snapshot.child("points").child("redeemed").getValue(Long.class);
+                Long receivedPoints = snapshot.child("points").child("received").getValue(Long.class);
+                int totalPoints = receivedPoints.intValue() - redeemedPoints.intValue();
+                t1.setText("Total Points: " + totalPoints);
+                Long pts = snapshot.child("points").child("received").getValue(Long.class);
+                int c = pts.intValue();
+                c = c / 20;
+                for (int i = 0; i < 100; i++) {
+                    Titles[i] = "Points Earned by Disposing Waste";
+                    Description[i] = "+20 Pts";
+                    Image[i] = "Trophy";
+                    Author[i] = "Location: At Frcrce Dustbin";
+                }
+                adapter = new RecyclerAdapter(AccountHistory.this, Titles, c, Image, Description, Author);
+                recyclerView.setAdapter(adapter);
+                adapter.updateData(AccountHistory.this, Titles, c, Image, Description, Author);
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -78,6 +103,5 @@ public class AccountHistory extends AppCompatActivity {
 
             }
         });
-
     }
 }

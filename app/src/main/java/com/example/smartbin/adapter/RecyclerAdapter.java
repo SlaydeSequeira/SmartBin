@@ -23,7 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
-    private final int count;
+    private int count;
     String[] Author;
     String[] data2;
     String[] data;
@@ -40,6 +40,15 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         this.data2 = data2;
         this.picture = picture;
         this.Author = Author;
+    }
+    public void updateData(Context context, String[] data, int count, String[] picture, String[] data2, String[] Author) {
+        this.data = data;
+        this.context = context;
+        this.count = count;
+        this.data2 = data2;
+        this.picture = picture;
+        this.Author = Author;
+        notifyDataSetChanged(); // Notify the adapter of the data change
     }
 
     @NonNull
