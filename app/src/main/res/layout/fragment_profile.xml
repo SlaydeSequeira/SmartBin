@@ -223,61 +223,67 @@
 
         </RelativeLayout>
     </RelativeLayout>
+
     <RelativeLayout
+        android:id="@+id/rel3"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        app:cardCornerRadius="30dp"
-        android:id="@+id/rel3"
         android:layout_below="@+id/rel2"
-        android:layout_margin="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/reward"
-        >
+        app:cardCornerRadius="30dp">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="7dp"
             android:background="@drawable/selector_background"
-            android:elevation="10dp"
-            >
+            android:elevation="10dp">
+
             <ImageView
+                android:id="@+id/image2"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
-                android:id="@+id/image2"
-                android:src="@drawable/baseline_aadhar_card_24"
-                />
+                android:src="@drawable/baseline_aadhar_card_24" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/image2"
                 android:layout_centerVertical="true"
-                android:textStyle="bold"
                 android:layout_marginLeft="20dp"
-                android:textSize="20dp"
+                android:layout_toRightOf="@+id/image2"
                 android:text="Verify Aadhar"
                 android:textColor="@color/black"
-                />
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
                 android:layout_marginRight="20dp"
-                android:src="@drawable/baseline_keyboard_arrow_right_24"
-                />
+                android:src="@drawable/baseline_keyboard_arrow_right_24" />
 
         </RelativeLayout>
     </RelativeLayout>
+
     <RelativeLayout
+        android:id="@+id/rel5"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:id="@+id/rel5"
         android:layout_below="@+id/rel3"
-        android:layout_margin="10dp"
-        android:background="@drawable/reward"
+        android:layout_marginStart="10dp"
 
-        >
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/reward">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -318,49 +324,52 @@
 
         </RelativeLayout>
     </RelativeLayout>
+
     <RelativeLayout
+        android:id="@+id/rel4"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:id="@+id/rel4"
         android:layout_below="@+id/rel5"
-        android:layout_margin="10dp"
-        android:background="@drawable/reward"
+        android:layout_marginStart="10dp"
 
-        >
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/reward">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="7dp"
             android:background="@drawable/selector_background"
-            android:elevation="10dp"
-            >
+            android:elevation="10dp">
+
             <ImageView
+                android:id="@+id/image4"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
-                android:id="@+id/image4"
-                android:src="@drawable/baseline_logout_24"
-                />
+                android:src="@drawable/baseline_logout_24" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/image4"
                 android:layout_centerVertical="true"
-                android:textStyle="bold"
                 android:layout_marginLeft="20dp"
-                android:textSize="20dp"
+                android:layout_toRightOf="@+id/image4"
                 android:text="Sign Out"
                 android:textColor="@color/black"
-                />
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
                 android:layout_marginRight="20dp"
-                android:src="@drawable/baseline_keyboard_arrow_right_24"
-                />
+                android:src="@drawable/baseline_keyboard_arrow_right_24" />
 
         </RelativeLayout>
     </RelativeLayout>
