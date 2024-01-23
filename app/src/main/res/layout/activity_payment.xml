@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    tools:context=".Payment">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:background="#1952FF"
+        android:id="@+id/top"
+        android:elevation="-1dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:id="@+id/text"
+            android:text="Your total is \n Rs 400"
+            android:textColor="#FFEB3B"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/top"
+        android:elevation="10dp"
+        android:layout_marginTop="-30dp"
+        android:translationZ="10dp"
+        >
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="10dp"
+            app:cardCornerRadius="30dp"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:elevation="10dp"
+                >
+
+                <TextView
+                    android:id="@+id/text1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="Pay By Card"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:layout_marginStart="20dp"
+                    android:textStyle="bold" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:id="@+id/scrollable"
+                    android:layout_below="@+id/text1"
+                    android:scrollbars="none">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_centerInParent="true"
+                        android:layout_gravity="center"
+                        android:orientation="horizontal">
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_horizontal">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+                                <!-- Card 1 -->
+                                <androidx.cardview.widget.CardView
+                                    android:id="@+id/card3"
+                                    android:layout_width="260dp"
+                                    android:layout_height="150dp"
+                                    android:layout_centerInParent="true"
+                                    android:backgroundTint="#00000000"
+                                    android:visibility="visible"
+                                    app:cardCornerRadius="10dp"
+                                    app:cardElevation="8dp">
+
+                                    <!-- Content inside the card -->
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:background="@drawable/card_gradient_1"
+                                        android:padding="16dp">
+
+                                        <ImageView
+                                            android:layout_width="40dp"
+                                            android:layout_height="40dp"
+                                            android:layout_alignParentTop="true"
+                                            android:layout_alignParentRight="true"
+                                            android:src="@drawable/visa" />
+
+                                        <TextView
+                                            android:id="@+id/card1"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_alignParentTop="true"
+                                            android:text="Credit Card"
+                                            android:textColor="#000000"
+                                            android:textSize="19sp"
+                                            android:textStyle="bold" />
+
+                                        <ImageView
+                                            android:layout_width="60dp"
+                                            android:layout_height="30dp"
+                                            android:layout_below="@id/card1"
+                                            android:layout_marginTop="5dp"
+                                            android:src="@drawable/chip" />
+                                        <!-- Card number -->
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_alignParentBottom="true"
+                                            android:layout_marginBottom="22dp"
+                                            android:text="1234\t\t5678\t\t9012\t\t3456"
+                                            android:textColor="#000000"
+                                            android:textSize="17sp"
+                                            android:textStyle="bold" />
+
+                                        <!-- Expiry date and CVV -->
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_alignParentBottom="true"
+                                            android:orientation="horizontal">
+
+                                            <!-- Expiry date -->
+                                            <TextView
+                                                android:layout_width="0dp"
+                                                android:layout_height="wrap_content"
+                                                android:layout_weight="1"
+                                                android:text="Exp: 12/25"
+                                                android:textColor="#000000"
+                                                android:textSize="17sp" />
+
+                                            <!-- CVV -->
+                                            <TextView
+                                                android:layout_width="0dp"
+                                                android:layout_height="wrap_content"
+                                                android:layout_weight="1"
+                                                android:text="CVV: 123"
+                                                android:textAlignment="viewEnd"
+                                                android:textColor="#000000"
+                                                android:textSize="12sp" />
+                                        </LinearLayout>
+                                    </RelativeLayout>
+
+                                </androidx.cardview.widget.CardView>
+                            </RelativeLayout>
+                        <!-- Card 2 -->
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/card4"
+                            android:layout_width="260dp"
+                            android:layout_height="150dp"
+                            app:cardCornerRadius="10dp"
+                            android:layout_centerInParent="true"
+                            app:cardElevation="8dp"
+                            android:backgroundTint="#00000000"
+                            android:visibility="gone">
+
+                            <!-- Content inside the card -->
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:padding="16dp"
+                                android:background="@drawable/card_gradient_2"
+                                >
+                                <ImageView
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:src="@drawable/visa"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_alignParentRight="true"
+                                    />
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentTop="true"
+                                    android:text="Debit Card"
+                                    android:id="@+id/card2"
+                                    android:textColor="#FFEB3B"
+                                    android:textSize="19sp"
+                                    android:backgroundTint="@color/white"
+                                    android:textStyle="bold" />
+
+                                <ImageView
+                                    android:layout_width="60dp"
+                                    android:src="@drawable/chip"
+                                    android:layout_height="30dp"
+                                    android:layout_below="@id/card2"
+                                    android:layout_marginTop="5dp"
+                                    />
+                                <!-- Card number -->
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_marginBottom="22dp"
+                                    android:text="1234\t\t5678\t\t9012\t\t3456"
+                                    android:textColor="#FFEB3B"
+                                    android:textSize="17sp"
+                                    android:textStyle="bold" />
+
+                                <!-- Expiry date and CVV -->
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:layout_alignParentBottom="true">
+
+                                    <!-- Expiry date -->
+                                    <TextView
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:text="Exp: 12/25"
+                                        android:textColor="#FFEB3B"
+                                        android:textSize="17sp"/>
+
+                                    <!-- CVV -->
+                                    <TextView
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:text="CVV: 123"
+                                        android:textColor="#FFEB3B"
+                                        android:textSize="12sp"
+                                        android:textAlignment="viewEnd"/>
+                                </LinearLayout>
+                            </RelativeLayout>
+
+                        </androidx.cardview.widget.CardView>
+
+                            </RelativeLayout>
+
+
+                        </FrameLayout>
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.7dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_below="@+id/rel1"
+                    android:background="#5C5C5C"
+                    android:id="@+id/view1"
+                    />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_above="@+id/view1"
+                    android:layout_width="150dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="10dp"
+                    app:cardCornerRadius="30dp"
+                    android:backgroundTint="#42BD47"
+                    android:text="Pay Now"
+                    android:onClick="changeCardColor"
+                    >
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="Enter"
+                            android:textColor="@color/white"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
+
+                <RelativeLayout
+                    android:layout_below="@id/scrollable"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="-10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="160dp"
+                    android:background="@color/white"
+                    android:id="@+id/rel1"
+
+                    >
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="9dp"
+                        android:layout_marginTop="9dp"
+                        android:layout_marginEnd="9dp"
+                        android:layout_marginBottom="9dp"
+                        android:background="@drawable/circle"
+                        android:id="@+id/edittext1"
+                        android:textColor="@color/black"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="25dp"
+                        android:background="@color/white"
+                        android:text="Enter Otp"
+                        android:textColor="@color/black"
+                        android:textSize="14dp"
+                        android:textStyle="bold" />
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_margin="19dp"
+                        android:backgroundTint="#D6D6D6"
+                        app:cardCornerRadius="200dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/baseline_password_24" />
+
+                    </androidx.cardview.widget.CardView>
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_below="@+id/view1"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/linear"
+                    >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Add New Card"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    android:textSize="18sp"
+                    android:layout_marginLeft="20sp"
+                    android:layout_weight="1"
+
+                    />
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/baseline_add_circle_outline_24"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="20dp"
+
+                        />
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.7dp"
+                    android:layout_marginTop="5dp"
+                    android:background="#5C5C5C"
+                    android:layout_below="@+id/linear"
+                    />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/linear"
+                    android:layout_above="@+id/send"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:text="Pay Using Upi"
+                        android:layout_marginTop="15dp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:layout_marginLeft="20dp"
+                        android:id="@+id/upi"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:text="+view more"
+                        android:layout_marginTop="15dp"
+                        android:textColor="#03A9F4"
+                        android:layout_marginLeft="20dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="20dp"
+                        android:id="@+id/send2"
+                        />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_below="@+id/upi"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        >
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/paytm"
+                            android:layout_weight="1"
+                            android:paddingRight="20dp"
+                            android:id="@+id/img1"
+                            />
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/gpay"
+                            android:paddingRight="20dp"
+                            android:layout_weight="1"
+                            android:id="@+id/img2"
+                            />
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/paypal"
+                            android:layout_weight="1"
+                            android:paddingRight="20dp"
+                            android:id="@+id/img3"
+                            />
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/upi"
+                            android:layout_weight="1"
+                            android:paddingRight="20dp"
+                            android:id="@+id/img4"
+
+                            />
+                    </LinearLayout>
+                </RelativeLayout>
+                <androidx.cardview.widget.CardView
+
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:id="@+id/send"
+        android:layout_marginTop="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="30dp"
+        android:layout_alignParentBottom="true"
+        android:backgroundTint="#42BD47"
+        android:text="Pay Now"
+        android:onClick="changeCardColor"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:text="Pay Now"
+        android:layout_centerInParent="true"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:layout_alignParentLeft="true"
+        android:text="Payable Amount"
+        android:layout_marginLeft="10dp"
+        android:layout_above="@+id/amt"
+        android:layout_toLeftOf="@+id/send"
+        android:textSize="14sp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:text="Rs 400"
+        android:id="@+id/amt"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/send"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+</RelativeLayout>
+</RelativeLayout>

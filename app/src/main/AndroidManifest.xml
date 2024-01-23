@@ -23,6 +23,9 @@
         android:theme="@style/Theme.SmartBin"
         tools:targetApi="33">
         <activity
+            android:name=".Payment"
+            android:exported="false" />
+        <activity
             android:name=".MessageActivity"
             android:exported="false" />
         <activity
