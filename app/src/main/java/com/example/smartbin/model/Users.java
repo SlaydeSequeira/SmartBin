@@ -3,7 +3,6 @@ package com.example.smartbin.model;
 public class Users {
 
     private String id;
-
     private String username;
     private String imageURL;
     private String status;
@@ -26,7 +25,6 @@ public class Users {
     public String getId() {
         return id;
     }
-
 
     public void setId(String id) {
         this.id = id;
